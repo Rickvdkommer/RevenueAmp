@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 import {
   Calendar,
@@ -17,20 +17,121 @@ import {
   Globe,
 } from 'lucide-react'
 
-function App() {
-  const mainRef = useRef(null)
+/* ── Motif SVG Components ── */
 
+function MotifPulse({ id = 'mp', h = 680, opacity = 0.12 }) {
+  return (
+    <div className="motif animate animate-fade-up" aria-hidden="true">
+      <svg viewBox={`0 0 1440 ${h}`} preserveAspectRatio="none" fill="none" style={{ opacity }}>
+        <defs>
+          <linearGradient id={`${id}-g`} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#2563EB" />
+            <stop offset="1" stopColor="#10B981" />
+          </linearGradient>
+        </defs>
+        {[0.15, 0.3, 0.45, 0.6, 0.75].map((r) => (
+          <line key={`h${r}`} x1="0" y1={h * r} x2="1440" y2={h * r} stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+        ))}
+        {[200, 500, 800, 1100].map((x) => (
+          <line key={`v${x}`} x1={x} y1="0" x2={x} y2={h} stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+        ))}
+        <path d={`M0,${h * 0.88} C360,${h * 0.66} 720,${h * 0.37} 1440,${h * 0.12}`} stroke="#10B98130" strokeWidth="8" />
+        <path d={`M0,${h * 0.88} C360,${h * 0.66} 720,${h * 0.37} 1440,${h * 0.12}`} stroke={`url(#${id}-g)`} strokeWidth="2" />
+        <circle cx="0" cy={h * 0.88} r="4" fill="#2563EB" />
+        <circle cx="400" cy={h * 0.66} r="4" fill="#10B981" />
+        <circle cx="800" cy={h * 0.37} r="4" fill="#2563EB" />
+        <circle cx="1200" cy={h * 0.12} r="4" fill="#10B981" />
+      </svg>
+    </div>
+  )
+}
+
+function MotifNetwork({ id = 'mn', h = 715, opacity = 0.06 }) {
+  return (
+    <div className="motif animate animate-fade-up" aria-hidden="true">
+      <svg viewBox={`0 0 1440 ${h}`} preserveAspectRatio="none" fill="none" style={{ opacity }}>
+        <circle cx="180" cy={h * 0.17} r="25" fill="#2563EB" />
+        <circle cx="520" cy={h * 0.39} r="30" fill="#10B981" />
+        <circle cx="900" cy={h * 0.21} r="22" fill="#2563EB" />
+        <circle cx="1200" cy={h * 0.49} r="28" fill="#10B981" />
+        <circle cx="350" cy={h * 0.7} r="20" fill="#2563EB" />
+        <circle cx="1050" cy={h * 0.77} r="25" fill="#10B981" />
+        <line x1="205" y1={h * 0.2} x2="495" y2={h * 0.37} stroke="#E5E7EB" strokeWidth="1.5" />
+        <line x1="550" y1={h * 0.43} x2="875" y2={h * 0.24} stroke="#E5E7EB" strokeWidth="1.5" />
+        <line x1="922" y1={h * 0.24} x2="1175" y2={h * 0.47} stroke="#E5E7EB" strokeWidth="1.5" />
+        <line x1="370" y1={h * 0.73} x2="1025" y2={h * 0.77} stroke="#E5E7EB" strokeWidth="1.5" />
+        <circle cx="700" cy={h * 0.28} r="7" fill="#E5E7EB" />
+        <circle cx="150" cy={h * 0.56} r="8" fill="#E5E7EB" />
+        <circle cx="1300" cy={h * 0.25} r="6" fill="#E5E7EB" />
+        <circle cx="600" cy={h * 0.84} r="9" fill="#E5E7EB" />
+        <circle cx="980" cy={h * 0.59} r="7" fill="#E5E7EB" />
+      </svg>
+    </div>
+  )
+}
+
+function MotifStaircase({ id = 'ms', h = 683, opacity = 0.08 }) {
+  const bars = [
+    { x: 100, h: 80 },
+    { x: 320, h: 140 },
+    { x: 540, h: 210 },
+    { x: 760, h: 300 },
+    { x: 980, h: 400 },
+  ]
+  return (
+    <div className="motif animate animate-fade-up" aria-hidden="true">
+      <svg viewBox={`0 0 1440 ${h}`} preserveAspectRatio="none" fill="none" style={{ opacity }}>
+        <defs>
+          <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#2563EB" />
+            <stop offset="1" stopColor="#10B981" />
+          </linearGradient>
+        </defs>
+        {bars.map((b, i) => (
+          <rect key={i} x={b.x} y={h - b.h} width="80" height={b.h} rx="4" fill={`url(#${id}-bg)`} />
+        ))}
+        {bars.slice(0, -1).map((b, i) => (
+          <line key={`c${i}`} x1={b.x + 80} y1={h - b.h} x2={bars[i + 1].x} y2={h - bars[i + 1].h} stroke="rgba(255,255,255,0.19)" strokeWidth="1" />
+        ))}
+        {bars.map((b, i) => (
+          <circle key={`d${i}`} cx={b.x + 34} cy={h - b.h - 6} r="4" fill="#10B981" />
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+function MotifGeometric({ h = 679, opacity = 0.04 }) {
+  return (
+    <div className="motif animate animate-fade-up" aria-hidden="true">
+      <svg viewBox={`0 0 1440 ${h}`} preserveAspectRatio="none" fill="none" style={{ opacity }}>
+        <rect x="40" y="30" width="160" height="120" rx="16" fill="#2563EB" />
+        <rect x="1250" y="50" width="140" height="100" rx="12" fill="#10B981" />
+        <rect x="80" y="520" width="120" height="150" rx="20" fill="#7C3AED" />
+        <rect x="1280" y="480" width="100" height="130" rx="14" fill="#2563EB" />
+        <rect x="1100" y="30" width="180" height="80" rx="10" fill="#10B981" />
+        <rect x="200" y="400" width="50" height="50" rx="6" stroke="#7C3AED" strokeWidth="2" fill="none" />
+        <rect x="1100" y="560" width="40" height="40" rx="4" stroke="#2563EB" strokeWidth="2" fill="none" />
+        <rect x="350" y="80" width="60" height="60" rx="8" stroke="#10B981" strokeWidth="2" fill="none" />
+      </svg>
+    </div>
+  )
+}
+
+/* ── Main App ── */
+
+function App() {
   useEffect(() => {
+    // Skip JS observer when native scroll-driven CSS is supported
+    if (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline', 'view()')) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
+          entry.target.classList.toggle('visible', entry.isIntersecting)
         })
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     )
 
     const elements = document.querySelectorAll('.animate')
@@ -61,9 +162,11 @@ function App() {
 
       {/* HERO */}
       <section id="hero" className="hero">
+        <MotifPulse id="mp1" h={680} opacity={0.12} />
         <div className="hero-left animate animate-slide-left">
           <span className="badge badge-blue">Fractional CRO / VP Sales</span>
           <h1>Scale Your Startup Without the Full-Time Overhead.</h1>
+          <div className="green-accent-line" />
           <p className="subtitle">
             High-impact Fractional CRO/VP Sales leadership to codify your sales
             motion, mentor your team, and bridge the gap from 0 to £10M+ ARR.
@@ -88,6 +191,7 @@ function App() {
 
       {/* SECTION 2 — Reality Check */}
       <section id="about" className="section-light">
+        <MotifNetwork id="mn1" h={715} opacity={0.06} />
         <span className="badge badge-primary animate animate-fade-up">The Reality Check</span>
         <h2 className="section-title animate animate-fade-up delay-1">
           Founder-Led Sales is a Superpower. But It's Not a System.
@@ -126,6 +230,7 @@ function App() {
 
       {/* SECTION 3 — Track Record */}
       <section id="track-record" className="section-dark">
+        <MotifStaircase id="ms1" h={683} opacity={0.08} />
         <span className="badge badge-blue animate animate-fade-up">Proven Results</span>
         <h2 className="section-title dark animate animate-fade-up delay-1">
           The "0 to £10M+" Track Record
@@ -172,6 +277,7 @@ function App() {
 
       {/* SECTION 4 — Fractional Model */}
       <section id="services" className="section-light">
+        <MotifGeometric h={679} opacity={0.04} />
         <span className="badge badge-primary animate animate-fade-up">The Fractional Advantage</span>
         <h2 className="section-title animate animate-fade-up delay-1">Expertise at a Fraction</h2>
         <p className="section-subtitle animate animate-fade-up delay-2">
@@ -229,6 +335,7 @@ function App() {
 
       {/* SECTION 5 — How I Help */}
       <section className="section-dark" style={{ gap: 48 }}>
+        <MotifPulse id="mp2" h={780} opacity={0.1} />
         <span className="badge animate animate-fade-up" style={{ background: 'rgba(37,99,235,0.15)', color: '#60A5FA' }}>
           Hands-On Leadership
         </span>
@@ -308,6 +415,7 @@ function App() {
 
       {/* SECTION 6 — Workshop */}
       <section id="workshops" className="section-gradient">
+        <MotifNetwork id="mn2" h={781} opacity={0.05} />
         <span className="badge badge-accent animate animate-fade-up">Exclusive Workshop</span>
         <div className="section-header animate animate-fade-up delay-1">
           <h2 className="section-title">
@@ -371,6 +479,7 @@ function App() {
 
       {/* SECTION 7 — Contact */}
       <section id="contact" className="section-cta">
+        <MotifStaircase id="ms2" h={832} opacity={0.1} />
         <div className="section-header animate animate-fade-up">
           <h2 className="section-title">
             Ready to give your sales motion
@@ -421,8 +530,12 @@ function App() {
         </div>
       </section>
 
+      {/* FOOTER ACCENT LINE */}
+      <div className="footer-accent-line" />
+
       {/* FOOTER */}
       <footer className="footer">
+        <MotifPulse id="mp3" h={304} opacity={0.07} />
         <div className="footer-top">
           <div className="foot-brand">
             <div className="foot-logo">
