@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import './App.css'
 import {
   Calendar,
@@ -17,6 +18,27 @@ import {
 } from 'lucide-react'
 
 function App() {
+  const mainRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    )
+
+    const elements = document.querySelectorAll('.animate')
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       {/* NAV */}
@@ -39,7 +61,7 @@ function App() {
 
       {/* HERO */}
       <section id="hero" className="hero">
-        <div className="hero-left">
+        <div className="hero-left animate animate-slide-left">
           <span className="badge badge-blue">Fractional CRO / VP Sales</span>
           <h1>Scale Your Startup Without the Full-Time Overhead.</h1>
           <p className="subtitle">
@@ -55,7 +77,7 @@ function App() {
             </a>
           </div>
         </div>
-        <div className="hero-right">
+        <div className="hero-right animate animate-slide-right">
           <img
             src="/PaulHeadshot.jpeg"
             alt="Paul Albert"
@@ -66,32 +88,32 @@ function App() {
 
       {/* SECTION 2 — Reality Check */}
       <section id="about" className="section-light">
-        <span className="badge badge-primary">The Reality Check</span>
-        <h2 className="section-title">
+        <span className="badge badge-primary animate animate-fade-up">The Reality Check</span>
+        <h2 className="section-title animate animate-fade-up delay-1">
           Founder-Led Sales is a Superpower. But It's Not a System.
         </h2>
-        <p className="section-subtitle">
+        <p className="section-subtitle animate animate-fade-up delay-2">
           You've proven the market. Closed the first deals yourself. But as your
           team grows, those heroic founder-led efforts need to become a
           repeatable, scalable engine. That's the hardest transition — and the
           one most startups get wrong.
         </p>
-        <div className="card-strip">
-          <div className="glass-card">
+        <div className="card-strip animate animate-fade-up delay-3">
+          <div className="glass-card animate animate-fade-up delay-1">
             <h3>The Problem</h3>
             <p>
               Bespoke efforts that can't be replicated. Every deal depends on
               the founder, and nothing is documented or transferable.
             </p>
           </div>
-          <div className="glass-card">
+          <div className="glass-card animate animate-fade-up delay-2">
             <h3>The Gap</h3>
             <p>
               No clear processes, metrics, or pipeline management. The team is
               flying blind without a structured sales methodology.
             </p>
           </div>
-          <div className="glass-card">
+          <div className="glass-card animate animate-fade-up delay-3">
             <h3>The Solution</h3>
             <p>
               Codifying the founder's magic into a repeatable, data-driven
@@ -104,43 +126,43 @@ function App() {
 
       {/* SECTION 3 — Track Record */}
       <section id="track-record" className="section-dark">
-        <span className="badge badge-blue">Proven Results</span>
-        <h2 className="section-title dark">
+        <span className="badge badge-blue animate animate-fade-up">Proven Results</span>
+        <h2 className="section-title dark animate animate-fade-up delay-1">
           The "0 to £10M+" Track Record
         </h2>
-        <p className="section-subtitle dark">
+        <p className="section-subtitle dark animate animate-fade-up delay-2">
           20+ years of building and scaling B2B SaaS revenue engines — from
           Series A to Series D and beyond.
         </p>
-        <div className="track-table">
+        <div className="track-table animate animate-fade-up delay-3">
           <div className="table-header">
             <span>Company</span>
             <span>Impact</span>
             <span>Milestone</span>
           </div>
-          <div className="table-row">
+          <div className="table-row animate animate-fade-up delay-1">
             <span className="company">Alida</span>
             <span className="impact">Market Leader Entry</span>
             <span className="milestone">0 — £8M ARR</span>
           </div>
-          <div className="table-row">
+          <div className="table-row animate animate-fade-up delay-2">
             <span className="company">Zappi</span>
             <span className="impact">Ground-up Build</span>
             <span className="milestone">0 — £8M ARR</span>
           </div>
-          <div className="table-row">
+          <div className="table-row animate animate-fade-up delay-3">
             <span className="company">Kaisa</span>
             <span className="impact">Upmarket Pivot</span>
             <span className="milestone">£8M — £12M ARR</span>
           </div>
-          <div className="table-row">
+          <div className="table-row animate animate-fade-up delay-4">
             <span className="company">Payhawk</span>
             <span className="impact">
               Rapid Team Scaling · 30→110 people
             </span>
             <span className="milestone">£3.5M — £12M ARR</span>
           </div>
-          <div className="table-row">
+          <div className="table-row animate animate-fade-up delay-5">
             <span className="company">Rest Less</span>
             <span className="impact">GTM &amp; Product-Market Fit</span>
             <span className="milestone">£1M — £2.25M Run Rate</span>
@@ -150,16 +172,16 @@ function App() {
 
       {/* SECTION 4 — Fractional Model */}
       <section id="services" className="section-light">
-        <span className="badge badge-primary">The Fractional Advantage</span>
-        <h2 className="section-title">Expertise at a Fraction</h2>
-        <p className="section-subtitle">
+        <span className="badge badge-primary animate animate-fade-up">The Fractional Advantage</span>
+        <h2 className="section-title animate animate-fade-up delay-1">Expertise at a Fraction</h2>
+        <p className="section-subtitle animate animate-fade-up delay-2">
           Think of me as a high-performance plug-in for your leadership team —
           senior revenue expertise without the full-time commitment, cost, or
           risk.
         </p>
         <div className="grid-wrap">
           <div className="grid-row">
-            <div className="feature-card">
+            <div className="feature-card animate animate-fade-up delay-1">
               <div className="icon-wrap">
                 <TrendingUp size={28} />
                 <h3>Accelerated Revenue</h3>
@@ -169,7 +191,7 @@ function App() {
                 to drive immediate revenue impact from day one.
               </p>
             </div>
-            <div className="feature-card">
+            <div className="feature-card animate animate-fade-up delay-2">
               <div className="icon-wrap">
                 <Target size={28} />
                 <h3>Elite Performance</h3>
@@ -181,7 +203,7 @@ function App() {
             </div>
           </div>
           <div className="grid-row">
-            <div className="feature-card">
+            <div className="feature-card animate animate-fade-up delay-3">
               <div className="icon-wrap accent">
                 <Layers size={28} />
                 <h3>Scalable Infrastructure</h3>
@@ -191,7 +213,7 @@ function App() {
                 foundation that grows with you — not against you.
               </p>
             </div>
-            <div className="feature-card">
+            <div className="feature-card animate animate-fade-up delay-4">
               <div className="icon-wrap">
                 <BarChart3 size={28} />
                 <h3>Data-Driven Logic</h3>
@@ -207,10 +229,10 @@ function App() {
 
       {/* SECTION 5 — How I Help */}
       <section className="section-dark" style={{ gap: 48 }}>
-        <span className="badge" style={{ background: 'rgba(37,99,235,0.15)', color: '#60A5FA' }}>
+        <span className="badge animate animate-fade-up" style={{ background: 'rgba(37,99,235,0.15)', color: '#60A5FA' }}>
           Hands-On Leadership
         </span>
-        <div className="section-header">
+        <div className="section-header animate animate-fade-up delay-1">
           <h2 className="section-title dark">How I Help Founders</h2>
           <p className="section-subtitle dark" style={{ fontSize: 18 }}>
             I'm not a "slides and spreadsheets" consultant. I love being in the
@@ -219,7 +241,7 @@ function App() {
           </p>
         </div>
         <div className="help-columns">
-          <div className="help-card">
+          <div className="help-card animate animate-slide-left delay-2">
             <div className="help-card-header">
               <div className="help-card-icon blue">
                 <Users size={22} />
@@ -250,7 +272,7 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="help-card">
+          <div className="help-card animate animate-slide-right delay-3">
             <div className="help-card-header">
               <div className="help-card-icon purple">
                 <FlaskConical size={22} />
@@ -286,8 +308,8 @@ function App() {
 
       {/* SECTION 6 — Workshop */}
       <section id="workshops" className="section-gradient">
-        <span className="badge badge-accent">Exclusive Workshop</span>
-        <div className="section-header">
+        <span className="badge badge-accent animate animate-fade-up">Exclusive Workshop</span>
+        <div className="section-header animate animate-fade-up delay-1">
           <h2 className="section-title">
             Stop Pitching. Start Leading
             <br />
@@ -299,7 +321,7 @@ function App() {
           </p>
         </div>
         <div className="workshop-content">
-          <div className="ws-info">
+          <div className="ws-info animate animate-slide-left delay-2">
             <div>
               <h3>The Goal</h3>
               <p className="ws-desc">
@@ -330,7 +352,7 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="ws-cta-card">
+          <div className="ws-cta-card animate animate-slide-right delay-3">
             <div className="ws-icon">
               <Presentation size={32} />
             </div>
@@ -349,7 +371,7 @@ function App() {
 
       {/* SECTION 7 — Contact */}
       <section id="contact" className="section-cta">
-        <div className="section-header">
+        <div className="section-header animate animate-fade-up">
           <h2 className="section-title">
             Ready to give your sales motion
             <br />a new pair of kicks?
@@ -359,7 +381,7 @@ function App() {
             approach is the right fit for your current stage.
           </p>
         </div>
-        <div className="contact-card">
+        <div className="contact-card animate animate-scale delay-2">
           <div className="cal-side">
             <h3>Book a Discovery Call</h3>
             <p className="cal-desc">
