@@ -122,9 +122,6 @@ function MotifGeometric({ h = 679, opacity = 0.04 }) {
 
 function App() {
   useEffect(() => {
-    // Skip JS observer when native scroll-driven CSS is supported
-    if (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline', 'view()')) return
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -134,8 +131,7 @@ function App() {
       { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     )
 
-    const elements = document.querySelectorAll('.animate')
-    elements.forEach((el) => observer.observe(el))
+    document.querySelectorAll('.animate').forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
   }, [])
