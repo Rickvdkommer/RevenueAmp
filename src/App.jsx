@@ -380,7 +380,7 @@ function App() {
           if (entry.isIntersecting) setActiveSection(entry.target.id)
         })
       },
-      { threshold: 0.3, rootMargin: '-20% 0px -50% 0px' }
+      { threshold: 0.15, rootMargin: '-20% 0px -35% 0px' }
     )
     sectionIds.forEach((id) => {
       const el = document.getElementById(id)
