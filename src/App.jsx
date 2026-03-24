@@ -361,6 +361,24 @@ function ProofCarousel() {
 function App() {
   const [navScrolled, setNavScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const navLinksRef = useRef(null)
+  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 })
+
+  /* Update sliding pill position whenever activeSection changes */
+  useEffect(() => {
+    const container = navLinksRef.current
+    if (!container) return
+    const activeLink = container.querySelector('.nav-active')
+    if (activeLink) {
+      const containerRect = container.getBoundingClientRect()
+      const linkRect = activeLink.getBoundingClientRect()
+      setPillStyle({
+        left: linkRect.left - containerRect.left,
+        width: linkRect.width,
+        opacity: 1,
+      })
+    }
+  }, [activeSection, navScrolled])
 
   useEffect(() => {
     const animObserver = new IntersectionObserver(
@@ -403,7 +421,15 @@ function App() {
       <nav className={`nav${navScrolled ? ' nav-scrolled' : ''}`}>
         <div className="nav-left">
           <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
-          <div className="nav-links">
+          <div className="nav-links" ref={navLinksRef}>
+            <div
+              className="nav-pill"
+              style={{
+                transform: `translateX(${pillStyle.left}px)`,
+                width: pillStyle.width,
+                opacity: pillStyle.opacity,
+              }}
+            />
             <a href="#" className={activeSection === 'hero' ? 'nav-active' : ''} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Home</a>
             <a href="#about" className={activeSection === 'about' ? 'nav-active' : ''}>About</a>
             <a href="#proof-points" className={activeSection === 'proof-points' ? 'nav-active' : ''}>Track Record</a>
