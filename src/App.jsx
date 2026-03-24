@@ -1,21 +1,58 @@
-import { useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
 import {
   Calendar,
   ArrowRight,
-  TrendingUp,
-  Target,
-  Layers,
-  BarChart3,
-  Users,
-  FlaskConical,
-  CircleCheckBig,
-  Presentation,
-  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
   Mail,
   Linkedin,
   Globe,
+  Presentation,
 } from 'lucide-react'
+
+/* ── Count-Up Hook ── */
+
+function useCountUp(target, duration = 1600) {
+  const [value, setValue] = useState(0)
+  const [started, setStarted] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true) },
+      { threshold: 0.5 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!started) return
+    const start = performance.now()
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setValue(Math.round(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [started, target, duration])
+
+  return { value, ref }
+}
+
+function CountStat({ target, prefix = '', suffix = '', label }) {
+  const { value, ref } = useCountUp(target)
+  return (
+    <div className="stat-item" ref={ref}>
+      <span className="stat-value">{prefix}{value}{suffix}</span>
+      <span className="stat-label">{label}</span>
+    </div>
+  )
+}
 
 /* ── Motif SVG Components ── */
 
@@ -72,14 +109,28 @@ function MotifNetwork({ id = 'mn', h = 715, opacity = 0.06 }) {
 
 function MotifStaircase({ id = 'ms', h = 683, opacity = 0.08 }) {
   const bars = [
-    { x: 100, h: 80 },
-    { x: 320, h: 140 },
-    { x: 540, h: 210 },
-    { x: 760, h: 300 },
-    { x: 980, h: 400 },
+    { x: 310, h: 80 },
+    { x: 490, h: 140 },
+    { x: 670, h: 210 },
+    { x: 850, h: 300 },
+    { x: 1030, h: 400 },
   ]
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div className="motif animate animate-fade-up" aria-hidden="true">
+    <div className="motif" ref={ref} aria-hidden="true">
       <svg viewBox={`0 0 1440 ${h}`} preserveAspectRatio="none" fill="none" style={{ opacity }}>
         <defs>
           <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="0" y2="1">
@@ -88,32 +139,219 @@ function MotifStaircase({ id = 'ms', h = 683, opacity = 0.08 }) {
           </linearGradient>
         </defs>
         {bars.map((b, i) => (
-          <rect key={i} x={b.x} y={h - b.h} width="80" height={b.h} rx="4" fill={`url(#${id}-bg)`} />
-        ))}
-        {bars.slice(0, -1).map((b, i) => (
-          <line key={`c${i}`} x1={b.x + 80} y1={h - b.h} x2={bars[i + 1].x} y2={h - bars[i + 1].h} stroke="rgba(255,255,255,0.19)" strokeWidth="1" />
-        ))}
-        {bars.map((b, i) => (
-          <circle key={`d${i}`} cx={b.x + 34} cy={h - b.h - 6} r="4" fill="#10B981" />
+          <rect
+            key={i}
+            x={b.x}
+            y={h}
+            width="100"
+            height={b.h}
+            rx="6"
+            fill={`url(#${id}-bg)`}
+            style={{
+              transition: `y 1.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.25}s, height 1.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.25}s`,
+              ...(visible ? { y: h - b.h, height: b.h } : { y: h, height: 0 }),
+            }}
+          />
         ))}
       </svg>
     </div>
   )
 }
 
-function MotifGeometric({ h = 679, opacity = 0.04 }) {
+/* ── Proof Points Data ── */
+
+const proofPoints = [
+  {
+    company: 'Element Human',
+    role: 'Fractional Sales Leadership',
+    period: '2024\u2013Present',
+    headline: 'Walked into an 83% revenue concentration, a cancelled anchor account, and a burning cash runway. Here\u2019s what happened next.',
+    paragraphs: [
+      'When I arrived, one client represented 83% of revenue, and then they cancelled mid-contract. There was no sales engine, no pipeline, and the clock was ticking.',
+      'I rebuilt from the ground up. Reworked the pricing to a consumption-based model to make it easier to land and expand. Cleaned up the marketing language so the proposition was actually clear. Then I went and sold it.',
+      'Bookings grew 330% in year one and are already tracking to 3x again in year two. New logos include Netflix, Prime Video, Billion Dollar Boy, Ogilvy, Captiv8 and Dentsu.',
+    ],
+    pullQuote: 'That\u2019s what a sales engine looks like when it runs.',
+    metrics: [
+      { value: '330%', label: 'Bookings growth Y1' },
+      { value: '3x', label: 'Tracking Y2' },
+    ],
+  },
+  {
+    company: 'Payhawk',
+    role: 'SVP Global Sales',
+    period: '2022',
+    headline: 'Hired to build. Fired for not hitting 10x. Here\u2019s what we actually did in 12 months.',
+    paragraphs: [
+      'I was brought in to professionalise a sales, success and support organisation that was essentially one team doing everything badly. I split them into distinct functions, hired 90 people in 9 months, opened Netherlands, France and the US, built out a new Salesforce instance from scratch and laid the foundations for a revenue operations data model that could actually scale.',
+      'Revenue grew 4x (\u20AC3M to \u20AC12M ARR) in a single year.',
+    ],
+    pullQuote: 'It wasn\u2019t the 10x the Series B demanded. But 4x from a standing start, across six markets, while building the entire infrastructure underneath it. I\u2019ll take that story any day.',
+    metrics: [
+      { value: '4x', label: 'Revenue growth' },
+      { value: '90', label: 'Hires in 9 months' },
+      { value: '6', label: 'Markets opened' },
+    ],
+  },
+  {
+    company: 'Freespee',
+    role: 'SVP Global Sales',
+    period: '2019\u20132021',
+    headline: 'The problem wasn\u2019t the product. It was that they were selling it to everyone.',
+    paragraphs: [
+      'When I arrived, Freespee was saying yes to any deal that came through the door. The numbers told a different story. CAC was identical whether you were landing a small brand or an enterprise, but LTV for smaller accounts barely covered the cost of winning them. It was growth that was quietly bleeding the business.',
+      'I stopped it. Closed unprofitable offices in Germany and Spain, right-sized the team and refocused the entire organisation around four verticals where the economics actually worked: Automotive, Luxury, Marketplace and Travel.',
+      'It worked. MSC Cruises landed at \u00A3400k and Richemont was next in line.',
+      'Then Covid hit. Every vertical we\u2019d built around (travel, luxury, automotive) shut down overnight. We shifted to protecting the base and rode it out.',
+    ],
+    pullQuote: 'Sometimes you build the right machine at exactly the wrong moment.',
+    metrics: [
+      { value: '\u00A3400k', label: 'MSC Cruises deal' },
+      { value: '4', label: 'Focused verticals' },
+    ],
+  },
+  {
+    company: 'Zappi',
+    role: 'VP EMEA',
+    period: '2015\u20132018',
+    headline: 'A Google Sheet, less than \u00A3100k in revenue, and a blank map of Europe.',
+    paragraphs: [
+      'Zappi was scrappy in the best possible way, but scrappy doesn\u2019t scale. I came in as the commercial lead for EMEA with one job: build the European business from nothing.',
+      'I introduced customer success, stood up the first Salesforce instance, hired a team that could actually go and win (many of whom are still there today as top performers). Established bases in Germany and France and made Zappi a recognised player across Europe.',
+      'By the time I left, the EU business was at \u00A38M ARR as part of a \u00A325M global business. Logos included Philip Morris, Reckitt Benckiser, Nestl\u00E9 and Samsung with deals ranging from \u00A360k to \u00A31M.',
+    ],
+    pullQuote: 'From a Google Sheet to a growth engine. That\u2019s the job.',
+    metrics: [
+      { value: '\u00A38M', label: 'EU ARR at exit' },
+      { value: '\u00A325M', label: 'Global business' },
+      { value: '\u00A360k\u2013\u00A31M', label: 'Deal range' },
+    ],
+  },
+  {
+    company: 'Alida',
+    role: 'SDR to Sales Director',
+    period: '2005\u20132014',
+    headline: 'Nearly a decade. Three roles. One through line: build it from nothing.',
+    paragraphs: [
+      'It started in Vancouver as one of the first SDRs, tasked with breaking into the US market. We did, generating 220+ discovery and demo meetings in a single year and creating the momentum that funded everything that followed.',
+      'That momentum got me sent to London as the first international employee, with a blank sheet of paper and a brief to build EMEA. I hunted across the region, landed anchor accounts and built the kind of pipeline that turns a startup into a serious business. Major wins included O2, UNICEF, HSBC and Twitter.',
+      'By the time I left as Sales Director, the UK business was at \u00A38M ARR.',
+    ],
+    pullQuote: 'Nine years. Every role earned. Every market built from scratch.',
+    metrics: [
+      { value: '\u00A38M', label: 'UK ARR' },
+      { value: '220+', label: 'Meetings in Y1' },
+      { value: '9 yrs', label: 'Tenure' },
+    ],
+  },
+]
+
+/* ── Proof Points Carousel ── */
+
+function ProofCarousel() {
+  const [current, setCurrent] = useState(0)
+  const total = proofPoints.length
+
+  const prev = useCallback(() => {
+    setCurrent((c) => (c === 0 ? total - 1 : c - 1))
+  }, [total])
+
+  const next = useCallback(() => {
+    setCurrent((c) => (c === total - 1 ? 0 : c + 1))
+  }, [total])
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [prev, next])
+
+  const getOffset = (index) => {
+    let off = index - current
+    if (off > total / 2) off -= total
+    if (off < -total / 2) off += total
+    return off
+  }
+
   return (
-    <div className="motif animate animate-fade-up" aria-hidden="true">
-      <svg viewBox={`0 0 1440 ${h}`} preserveAspectRatio="none" fill="none" style={{ opacity }}>
-        <rect x="40" y="30" width="160" height="120" rx="16" fill="#2563EB" />
-        <rect x="1250" y="50" width="140" height="100" rx="12" fill="#10B981" />
-        <rect x="80" y="520" width="120" height="150" rx="20" fill="#7C3AED" />
-        <rect x="1280" y="480" width="100" height="130" rx="14" fill="#2563EB" />
-        <rect x="1100" y="30" width="180" height="80" rx="10" fill="#10B981" />
-        <rect x="200" y="400" width="50" height="50" rx="6" stroke="#7C3AED" strokeWidth="2" fill="none" />
-        <rect x="1100" y="560" width="40" height="40" rx="4" stroke="#2563EB" strokeWidth="2" fill="none" />
-        <rect x="350" y="80" width="60" height="60" rx="8" stroke="#10B981" strokeWidth="2" fill="none" />
-      </svg>
+    <div className="carousel">
+      <div className="carousel-deck">
+        {proofPoints.map((pt, i) => {
+          const offset = getOffset(i)
+          const isActive = offset === 0
+          const isVisible = Math.abs(offset) <= 2
+
+          return (
+            <div
+              key={i}
+              className="carousel-card"
+              style={{
+                transform: `translateX(${offset * 72}%) scale(${isActive ? 1 : 0.9 - Math.abs(offset) * 0.03})`,
+                opacity: isActive ? 1 : Math.abs(offset) === 1 ? 0.15 : 0,
+                zIndex: total - Math.abs(offset),
+                pointerEvents: isActive ? 'auto' : 'none',
+                filter: isActive ? 'none' : 'blur(1px)',
+                visibility: isVisible ? 'visible' : 'hidden',
+              }}
+            >
+              <div className="carousel-card-header">
+                <div>
+                  <h3 className="carousel-company">{pt.company}</h3>
+                  <span className="carousel-role">{pt.role}, {pt.period}</span>
+                </div>
+                <span className="carousel-counter">{i + 1} / {total}</span>
+              </div>
+
+              <div className="carousel-card-accent" />
+
+              <h4 className="carousel-headline">{pt.headline}</h4>
+
+              <div className="carousel-body">
+                {pt.paragraphs.map((p, j) => (
+                  <p key={j}>{p}</p>
+                ))}
+              </div>
+
+              <div className="carousel-pull-quote">
+                <p>{pt.pullQuote}</p>
+              </div>
+
+              <div className="carousel-metrics">
+                {pt.metrics.map((m, j) => (
+                  <div key={j} className="carousel-metric">
+                    <span className="carousel-metric-value">{m.value}</span>
+                    <span className="carousel-metric-label">{m.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="carousel-controls">
+        <button className="carousel-arrow" onClick={prev} aria-label="Previous">
+          <ChevronLeft size={20} />
+        </button>
+        <div className="carousel-logos">
+          {proofPoints.map((pt, i) => (
+            <button
+              key={i}
+              className={`carousel-logo${i === current ? ' active' : ''}`}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to ${pt.company}`}
+            >
+              {pt.company}
+            </button>
+          ))}
+        </div>
+        <button className="carousel-arrow" onClick={next} aria-label="Next">
+          <ChevronRight size={20} />
+        </button>
+      </div>
     </div>
   )
 }
@@ -121,8 +359,11 @@ function MotifGeometric({ h = 679, opacity = 0.04 }) {
 /* ── Main App ── */
 
 function App() {
+  const [navScrolled, setNavScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('hero')
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const animObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           entry.target.classList.toggle('visible', entry.isIntersecting)
@@ -130,27 +371,47 @@ function App() {
       },
       { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     )
+    document.querySelectorAll('.animate').forEach((el) => animObserver.observe(el))
 
-    document.querySelectorAll('.animate').forEach((el) => observer.observe(el))
+    const sectionIds = ['hero', 'about', 'proof-points', 'process', 'lets-talk']
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id)
+        })
+      },
+      { threshold: 0.3, rootMargin: '-20% 0px -50% 0px' }
+    )
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) sectionObserver.observe(el)
+    })
 
-    return () => observer.disconnect()
+    const handleScroll = () => setNavScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      animObserver.disconnect()
+      sectionObserver.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
     <>
       {/* NAV */}
-      <nav className="nav">
+      <nav className={`nav${navScrolled ? ' nav-scrolled' : ''}`}>
         <div className="nav-left">
-          <div className="logo-placeholder">R</div>
+          <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
           <div className="nav-links">
-            <a href="#hero">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#workshops">Workshops</a>
+            <a href="#" className={activeSection === 'hero' ? 'nav-active' : ''} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Home</a>
+            <a href="#about" className={activeSection === 'about' ? 'nav-active' : ''}>About</a>
+            <a href="#proof-points" className={activeSection === 'proof-points' ? 'nav-active' : ''}>Track Record</a>
+            <a href="#process" className={activeSection === 'process' ? 'nav-active' : ''}>How I Work</a>
           </div>
         </div>
         <div>
-          <a href="#contact" className="btn-primary">
+          <a href="#lets-talk" className="btn-primary">
             Book a Call <Calendar size={20} />
           </a>
         </div>
@@ -160,19 +421,19 @@ function App() {
       <section id="hero" className="hero">
         <MotifPulse id="mp1" h={680} opacity={0.12} />
         <div className="hero-left animate animate-slide-left">
-          <span className="badge badge-blue">Fractional CRO / VP Sales</span>
-          <h1>Scale Your Startup Without the Full-Time Overhead.</h1>
+          <span className="badge badge-blue">Fractional Sales Leadership</span>
+          <h1>I don't hand you a strategy deck and leave. I build it with you. Then I go and sell it.</h1>
           <div className="green-accent-line" />
           <p className="subtitle">
-            High-impact Fractional CRO/VP Sales leadership to codify your sales
-            motion, mentor your team, and bridge the gap from 0 to £10M+ ARR.
+            Fractional Sales Leadership for B2B companies ready to stop firefighting
+            and start building a compounding revenue engine.
           </p>
           <div className="cta-row">
-            <a href="#contact" className="btn-primary">
-              Book a 30-Minute Discovery Call <Calendar size={20} />
+            <a href="#lets-talk" className="btn-primary">
+              Book a Call <Calendar size={20} />
             </a>
-            <a href="#track-record" className="btn-outline">
-              View Case Studies <ArrowRight size={20} />
+            <a href="#proof-points" className="btn-outline">
+              See My Work <ArrowRight size={20} />
             </a>
           </div>
         </div>
@@ -185,343 +446,140 @@ function App() {
         </div>
       </section>
 
-      {/* SECTION 2 — Reality Check */}
+      {/* THE REALITY CHECK */}
       <section id="about" className="section-light">
-        <MotifNetwork id="mn1" h={715} opacity={0.06} />
+        <MotifStaircase id="ms1" h={683} opacity={0.08} />
         <span className="badge badge-primary animate animate-fade-up">The Reality Check</span>
         <h2 className="section-title animate animate-fade-up delay-1">
-          Founder-Led Sales is a Superpower. But It's Not a System.
+          Most fractional hires give you a strategy. I give you pipeline.
         </h2>
         <p className="section-subtitle animate animate-fade-up delay-2">
-          You've proven the market. Closed the first deals yourself. But as your
-          team grows, those heroic founder-led efforts need to become a
-          repeatable, scalable engine. That's the hardest transition — and the
-          one most startups get wrong.
+          The founder is still closing every deal, the sales motion isn't repeatable,
+          and the gap between where you are and where you need to be feels wider every
+          quarter. That's exactly where I work best.
         </p>
-        <div className="card-strip animate animate-fade-up delay-3">
-          <div className="glass-card animate animate-fade-up delay-1">
-            <h3>The Problem</h3>
+        <div className="principle-cards animate animate-fade-up delay-3">
+          <div className="principle-card">
+            <h3>Not a consultant.</h3>
             <p>
-              Bespoke efforts that can't be replicated. Every deal depends on
-              the founder, and nothing is documented or transferable.
+              I don't hand you a deck and leave. I'm in the room, on the calls,
+              leading from the front while the system gets built around me.
             </p>
           </div>
-          <div className="glass-card animate animate-fade-up delay-2">
-            <h3>The Gap</h3>
+          <div className="principle-card">
+            <h3>Not an employee.</h3>
             <p>
-              No clear processes, metrics, or pipeline management. The team is
-              flying blind without a structured sales methodology.
+              No politics, no ramp time. I build the system around me and leave
+              once it runs without me.
             </p>
           </div>
-          <div className="glass-card animate animate-fade-up delay-3">
-            <h3>The Solution</h3>
+          <div className="principle-card">
+            <h3>Selective.</h3>
             <p>
-              Codifying the founder's magic into a repeatable, data-driven
-              strategy that scales with the team and survives beyond any one
-              person.
+              I take on a small number of partners. I have to believe in the problem
+              you're solving. If I do, I'm all in.
             </p>
           </div>
         </div>
       </section>
 
-      {/* SECTION 3 — Track Record */}
-      <section id="track-record" className="section-dark">
-        <MotifStaircase id="ms1" h={683} opacity={0.08} />
-        <span className="badge badge-blue animate animate-fade-up">Proven Results</span>
+      {/* BY THE NUMBERS */}
+      <section className="section-stats">
+        <div className="stats-row">
+          <CountStat target={20} suffix="+" label="Years in B2B Sales" />
+          <div className="stat-divider" />
+          <CountStat target={5} label="Revenue Engines Built" />
+          <div className="stat-divider" />
+          <CountStat target={40} prefix="£" suffix="M+" label="ARR Generated" />
+          <div className="stat-divider" />
+          <CountStat target={6} label="International Markets" />
+        </div>
+      </section>
+
+      {/* PROOF POINTS */}
+      <section id="proof-points" className="section-proof">
+        <span className="badge badge-blue animate animate-fade-up">Proof Points</span>
         <h2 className="section-title dark animate animate-fade-up delay-1">
-          The "0 to £10M+" Track Record
+          The work speaks for itself.
         </h2>
-        <p className="section-subtitle dark animate animate-fade-up delay-2">
-          20+ years of building and scaling B2B SaaS revenue engines — from
-          Series A to Series D and beyond.
-        </p>
-        <div className="track-table animate animate-fade-up delay-3">
-          <div className="table-header">
-            <span>Company</span>
-            <span>Impact</span>
-            <span>Milestone</span>
-          </div>
-          <div className="table-row animate animate-fade-up delay-1">
-            <span className="company">Alida</span>
-            <span className="impact">Market Leader Entry</span>
-            <span className="milestone">0 — £8M ARR</span>
-          </div>
-          <div className="table-row animate animate-fade-up delay-2">
-            <span className="company">Zappi</span>
-            <span className="impact">Ground-up Build</span>
-            <span className="milestone">0 — £8M ARR</span>
-          </div>
-          <div className="table-row animate animate-fade-up delay-3">
-            <span className="company">Kaisa</span>
-            <span className="impact">Upmarket Pivot</span>
-            <span className="milestone">£8M — £12M ARR</span>
-          </div>
-          <div className="table-row animate animate-fade-up delay-4">
-            <span className="company">Payhawk</span>
-            <span className="impact">
-              Rapid Team Scaling · 30→110 people
-            </span>
-            <span className="milestone">£3.5M — £12M ARR</span>
-          </div>
-          <div className="table-row animate animate-fade-up delay-5">
-            <span className="company">Rest Less</span>
-            <span className="impact">GTM &amp; Product-Market Fit</span>
-            <span className="milestone">£1M — £2.25M Run Rate</span>
-          </div>
+        <div className="animate animate-fade-up delay-2" style={{ width: '100%' }}>
+          <ProofCarousel />
         </div>
       </section>
 
-      {/* SECTION 4 — Fractional Model */}
-      <section id="services" className="section-light">
-        <MotifGeometric h={679} opacity={0.04} />
-        <span className="badge badge-primary animate animate-fade-up">The Fractional Advantage</span>
-        <h2 className="section-title animate animate-fade-up delay-1">Expertise at a Fraction</h2>
+      {/* HOW I WORK */}
+      <section id="process" className="section-light">
+        <span className="badge badge-primary animate animate-fade-up">How I Work</span>
+        <h2 className="section-title animate animate-fade-up delay-1">
+          Three phases. One outcome.
+        </h2>
         <p className="section-subtitle animate animate-fade-up delay-2">
-          Think of me as a high-performance plug-in for your leadership team —
-          senior revenue expertise without the full-time commitment, cost, or
-          risk.
+          Every engagement follows the same arc — diagnose, build, hand off.
         </p>
-        <div className="grid-wrap">
-          <div className="grid-row">
-            <div className="feature-card animate animate-fade-up delay-1">
-              <div className="icon-wrap">
-                <TrendingUp size={28} />
-                <h3>Accelerated Revenue</h3>
-              </div>
-              <p>
-                Pipeline ownership, deal strategy, and hands-on closing support
-                to drive immediate revenue impact from day one.
-              </p>
-            </div>
-            <div className="feature-card animate animate-fade-up delay-2">
-              <div className="icon-wrap">
-                <Target size={28} />
-                <h3>Elite Performance</h3>
-              </div>
-              <p>
-                Rigorous discovery, qualification, and expansion frameworks that
-                turn good reps into great ones.
-              </p>
-            </div>
+        <div className="process-steps">
+          <div className="process-step animate animate-fade-up delay-3">
+            <div className="process-number">01</div>
+            <h3>Revenue Audit</h3>
+            <p>
+              I map your pipeline, pricing, team structure, and sales motion.
+              You get an honest diagnosis — whether we work together or not.
+            </p>
           </div>
-          <div className="grid-row">
-            <div className="feature-card animate animate-fade-up delay-3">
-              <div className="icon-wrap accent">
-                <Layers size={28} />
-                <h3>Scalable Infrastructure</h3>
-              </div>
-              <p>
-                Optimizing your CRM, sales tools, and tech stack to create a
-                foundation that grows with you — not against you.
-              </p>
-            </div>
-            <div className="feature-card animate animate-fade-up delay-4">
-              <div className="icon-wrap">
-                <BarChart3 size={28} />
-                <h3>Data-Driven Logic</h3>
-              </div>
-              <p>
-                Metrics, dashboards, and visibility into every stage of your
-                pipeline so decisions are made on data, not gut feel.
-              </p>
-            </div>
+          <div className="process-connector animate animate-fade-up delay-3" />
+          <div className="process-step animate animate-fade-up delay-4">
+            <div className="process-number">02</div>
+            <h3>Build the Engine</h3>
+            <p>
+              I'm in the field — closing deals, hiring reps, standing up the CRM,
+              building the playbook. The system gets built while revenue comes in.
+            </p>
+          </div>
+          <div className="process-connector animate animate-fade-up delay-4" />
+          <div className="process-step animate animate-fade-up delay-5">
+            <div className="process-number">03</div>
+            <h3>Hand Off</h3>
+            <p>
+              Once the engine runs without me, I step back. You keep the system,
+              the team, and the momentum. That's the whole point.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* SECTION 5 — How I Help */}
-      <section className="section-dark" style={{ gap: 48 }}>
-        <MotifPulse id="mp2" h={780} opacity={0.1} />
-        <span className="badge animate animate-fade-up" style={{ background: 'rgba(37,99,235,0.15)', color: '#60A5FA' }}>
-          Hands-On Leadership
-        </span>
-        <div className="section-header animate animate-fade-up delay-1">
-          <h2 className="section-title dark">How I Help Founders</h2>
-          <p className="section-subtitle dark" style={{ fontSize: 18 }}>
-            I'm not a "slides and spreadsheets" consultant. I love being in the
-            field with reps, talking directly to customers, and seeing Slack
-            light up with wins.
-          </p>
-        </div>
-        <div className="help-columns">
-          <div className="help-card animate animate-slide-left delay-2">
-            <div className="help-card-header">
-              <div className="help-card-icon blue">
-                <Users size={22} />
-              </div>
-              <h3>Management &amp; Mentoring</h3>
-            </div>
-            <div className="help-items">
-              <div className="help-item">
-                <h4>Operating Cadence</h4>
-                <p>
-                  High-accountability 1:1s, pipeline reviews, and coaching
-                  sessions that build muscle memory.
-                </p>
-              </div>
-              <div className="help-item">
-                <h4>Co-Selling</h4>
-                <p>
-                  Owning and progressing critical opportunities alongside your
-                  team — not from the sidelines.
-                </p>
-              </div>
-              <div className="help-item">
-                <h4>Hiring &amp; Culture</h4>
-                <p>
-                  Building career pathways and hiring guides to attract A-players
-                  who stay and grow.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="help-card animate animate-slide-right delay-3">
-            <div className="help-card-header">
-              <div className="help-card-icon purple">
-                <FlaskConical size={22} />
-              </div>
-              <h3>Evidence-Based Frameworks</h3>
-            </div>
-            <div className="help-items">
-              <div className="help-item">
-                <h4>Methodology</h4>
-                <p>
-                  Implementing high-impact frameworks like MEDDPIC or Challenger
-                  Sales tailored to your market.
-                </p>
-              </div>
-              <div className="help-item">
-                <h4>CRM Design</h4>
-                <p>
-                  Mapping your HubSpot or Salesforce data model to the actual
-                  customer lifecycle — not the other way around.
-                </p>
-              </div>
-              <div className="help-item">
-                <h4>Forecasting</h4>
-                <p>
-                  Replacing guesswork with leading indicators and hard data that
-                  your board can trust.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 6 — Workshop */}
-      <section id="workshops" className="section-gradient">
-        <MotifNetwork id="mn2" h={781} opacity={0.05} />
-        <span className="badge badge-accent animate animate-fade-up">Exclusive Workshop</span>
-        <div className="section-header animate animate-fade-up delay-1">
-          <h2 className="section-title">
-            Stop Pitching. Start Leading
-            <br />
-            with a Sales Narrative.
-          </h2>
-          <p className="section-subtitle" style={{ fontSize: 18 }}>
-            In collaboration with Insight Platforms, I run exclusive 90-minute
-            workshops for founders and sales leaders.
-          </p>
-        </div>
-        <div className="workshop-content">
-          <div className="ws-info animate animate-slide-left delay-2">
-            <div>
-              <h3>The Goal</h3>
-              <p className="ws-desc">
-                Learn how to build a world-class sales narrative using the
-                Challenger Choreography.
-              </p>
-            </div>
-            <div className="check-list">
-              <div className="check-item">
-                <CircleCheckBig size={22} />
-                <p>
-                  Identify your "Commercial Insight" — the reframe that changes
-                  how buyers think.
-                </p>
-              </div>
-              <div className="check-item">
-                <CircleCheckBig size={22} />
-                <p>
-                  Break the "Sea of Sameness" in your market with a
-                  differentiated narrative.
-                </p>
-              </div>
-              <div className="check-item">
-                <CircleCheckBig size={22} />
-                <p>
-                  Create a step-by-step presentation framework that wins deals.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="ws-cta-card animate animate-slide-right delay-3">
-            <div className="ws-icon">
-              <Presentation size={32} />
-            </div>
-            <span className="ws-label">Next Workshop</span>
-            <span className="ws-time">
-              90 Minutes
-              <br />
-              Live &amp; Interactive
-            </span>
-            <a href="#contact" className="btn-secondary">
-              Register for Next Workshop <ExternalLink size={20} />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7 — Contact */}
-      <section id="contact" className="section-cta">
-        <MotifStaircase id="ms2" h={832} opacity={0.1} />
+      {/* LET'S TALK */}
+      <section id="lets-talk" className="section-cta">
+        <MotifPulse id="mp3" h={832} opacity={0.1} />
         <div className="section-header animate animate-fade-up">
-          <h2 className="section-title">
-            Ready to give your sales motion
-            <br />a new pair of kicks?
-          </h2>
-          <p className="section-subtitle">
-            Let's discuss your current roadblocks and see if a fractional
-            approach is the right fit for your current stage.
-          </p>
+          <h2 className="section-title">Let's Talk</h2>
+          <p className="section-subtitle">There are two ways in.</p>
         </div>
-        <div className="contact-card animate animate-scale delay-2">
-          <div className="cal-side">
-            <h3>Book a Discovery Call</h3>
-            <p className="cal-desc">
-              30 minutes to explore your current stage, roadblocks, and whether
-              a fractional CRO/VP Sales is the right move.
-            </p>
-            <div className="cal-placeholder">
-              <Calendar size={32} />
-              <span>Cal.com / Calendly Embed</span>
+        <div className="talk-cards animate animate-fade-up delay-2">
+          <div className="talk-card">
+            <div className="talk-card-icon">
+              <Presentation size={28} />
             </div>
-            <a href="#" className="btn-primary">
-              Book a 30-Minute Call <Calendar size={20} />
+            <h3>Is Your Deck Killing Your Deals?</h3>
+            <p>
+              The monthly masterclass for founders and sales leaders who are tired
+              of great pitches ending in no decision.
+            </p>
+            <a href="#" className="btn-secondary">
+              Reserve Your Spot <ArrowRight size={18} />
             </a>
           </div>
-          <div className="info-side">
-            <h3>Get in Touch</h3>
-            <div className="info-items">
-              <div className="info-row">
-                <Mail size={20} />
-                <span>info@revampconsulting.co.uk</span>
-              </div>
-              <div className="info-row">
-                <Linkedin size={20} />
-                <span>Paul Albert</span>
-              </div>
-              <div className="info-row">
-                <Globe size={20} />
-                <span>revampconsulting.co.uk</span>
-              </div>
+          <div className="talk-card">
+            <div className="talk-card-icon">
+              <Calendar size={28} />
             </div>
-            <div className="info-divider" />
-            <p className="info-quote">
-              "Paul doesn't just advise — he rolls up his sleeves and makes it
-              happen."
+            <h3>Book a Revenue Audit — 30 Minutes</h3>
+            <p>
+              If you're wondering whether your sales motion is broken or just needs
+              tuning, let's find out. I'll tell you what I see, honestly, whether we
+              work together or not.
             </p>
+            <a href="#" className="btn-primary">
+              Book the Audit <ArrowRight size={18} />
+            </a>
           </div>
         </div>
       </section>
@@ -531,40 +589,38 @@ function App() {
 
       {/* FOOTER */}
       <footer className="footer">
-        <MotifPulse id="mp3" h={304} opacity={0.07} />
+        <MotifPulse id="mp4" h={304} opacity={0.07} />
         <div className="footer-top">
           <div className="foot-brand">
-            <div className="foot-logo">
-              <div className="foot-logo-icon">
-                <TrendingUp size={18} />
-              </div>
-              <span>revamp</span>
-            </div>
-            <p className="foot-tag">
-              Fractional CRO/VP Sales for high-growth startups
-            </p>
+            <img src="/logo-horizontal.png" alt="RevAmp — Revenue Amplified" className="foot-logo-img" />
           </div>
           <div className="foot-links">
             <div className="foot-col">
-              <h4>Services</h4>
-              <a href="#">Fractional CRO</a>
-              <a href="#">Sales Strategy</a>
-              <a href="#">Team Scaling</a>
-              <a href="#">Workshops</a>
+              <h4>Navigate</h4>
+              <a href="#about">About</a>
+              <a href="#proof-points">Track Record</a>
+              <a href="#lets-talk">Contact</a>
             </div>
             <div className="foot-col">
-              <h4>Company</h4>
-              <a href="#">About</a>
-              <a href="#">Case Studies</a>
-              <a href="#">Contact</a>
-              <a href="#">LinkedIn</a>
+              <h4>Connect</h4>
+              <a href="mailto:info@revampconsulting.co.uk">
+                <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
+                Email
+              </a>
+              <a href="#">
+                <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
+                LinkedIn
+              </a>
+              <a href="#">
+                <Globe size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
+                Website
+              </a>
             </div>
           </div>
         </div>
         <div className="foot-divider" />
         <div className="footer-bottom">
           <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
-          <span>Designed with the Growth Gradient × Liquid Glass system</span>
         </div>
       </footer>
     </>
