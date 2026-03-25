@@ -574,18 +574,18 @@ function App() {
 
       {/* TESTIMONIAL */}
       <section className="section-testimonial">
-        <div className="testimonial-card animate animate-fade-up">
-          <Quote size={36} className="testimonial-quote-icon" />
-          <blockquote className="testimonial-text">
-            Paul came in and did exactly what he said he would. He rebuilt our sales
-            motion from the ground up, got on the calls himself, and delivered results
-            that spoke for themselves. He's the real deal.
-          </blockquote>
-          <div className="testimonial-author">
-            <div>
-              <span className="testimonial-name">Matt Sherren</span>
-              <span className="testimonial-role">CEO, Element Human</span>
-            </div>
+        <span className="badge badge-blue animate animate-fade-up">What Clients Say</span>
+        <div className="testimonial-video-wrap animate animate-fade-up delay-1">
+          {/* Replace the placeholder below with YouTube/Vimeo iframe once uploaded */}
+          <div className="testimonial-video-placeholder">
+            <Calendar size={48} />
+            <span>Video testimonial — upload coming soon</span>
+          </div>
+        </div>
+        <div className="testimonial-author animate animate-fade-up delay-2">
+          <div>
+            <span className="testimonial-name">Matt Celuszak</span>
+            <span className="testimonial-role">CEO, Element Human</span>
           </div>
         </div>
       </section>
