@@ -598,7 +598,7 @@ function App() {
           Three phases. One outcome.
         </h2>
         <p className="section-subtitle animate animate-fade-up delay-2">
-          Every engagement follows the same arc — diagnose, build, hand off.
+          Every engagement follows the same arc — diagnose, build, scale.
         </p>
         <div className="process-steps">
           <div className="process-step animate animate-fade-up delay-3">
@@ -621,10 +621,11 @@ function App() {
           <div className="process-connector animate animate-fade-up delay-4" />
           <div className="process-step animate animate-fade-up delay-5">
             <div className="process-number">03</div>
-            <h3>Hand Off</h3>
+            <h3>Scale & Optimise</h3>
             <p>
-              Once the engine runs without me, I step back. You keep the system,
-              the team, and the momentum. That's the whole point.
+              The engine is running. Now I shift from building to scaling —
+              coaching the team, refining the playbook, and pushing into new
+              segments. The system gets better every quarter.
             </p>
           </div>
         </div>
