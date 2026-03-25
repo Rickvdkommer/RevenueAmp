@@ -576,11 +576,12 @@ function App() {
       <section className="section-testimonial">
         <span className="badge badge-blue animate animate-fade-up">What Clients Say</span>
         <div className="testimonial-video-wrap animate animate-fade-up delay-1">
-          {/* Replace the placeholder below with YouTube/Vimeo iframe once uploaded */}
-          <div className="testimonial-video-placeholder">
-            <Calendar size={48} />
-            <span>Video testimonial — upload coming soon</span>
-          </div>
+          <iframe
+            src="https://adilo.bigcommand.com/watch/dZ08LXaq"
+            allowFullScreen
+            scrolling="no"
+            title="Client testimonial — Matt Celuszak, CEO Element Human"
+          />
         </div>
         <div className="testimonial-author animate animate-fade-up delay-2">
           <div>
