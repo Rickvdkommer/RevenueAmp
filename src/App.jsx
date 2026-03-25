@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import './App.css'
 import {
   Calendar,
@@ -9,7 +10,6 @@ import {
   Linkedin,
   Globe,
   Presentation,
-  Quote,
 } from 'lucide-react'
 
 /* ── Count-Up Hook ── */
@@ -647,9 +647,9 @@ function App() {
               The monthly masterclass for founders and sales leaders who are tired
               of great pitches ending in no decision.
             </p>
-            <a href="#" className="btn-secondary">
+            <Link to="/webinar" className="btn-secondary">
               Reserve Your Spot <ArrowRight size={18} />
-            </a>
+            </Link>
           </div>
           <div className="talk-card">
             <div className="talk-card-icon">
