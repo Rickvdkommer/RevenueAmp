@@ -391,7 +391,7 @@ function App() {
     )
     document.querySelectorAll('.animate').forEach((el) => animObserver.observe(el))
 
-    const sectionIds = ['hero', 'about', 'proof-points', 'process', 'lets-talk']
+    const sectionIds = ['hero', 'about', 'proof-points', 'lets-talk']
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -433,7 +433,7 @@ function App() {
             <a href="#" className={activeSection === 'hero' ? 'nav-active' : ''} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Home</a>
             <a href="#about" className={activeSection === 'about' ? 'nav-active' : ''}>About</a>
             <a href="#proof-points" className={activeSection === 'proof-points' ? 'nav-active' : ''}>Track Record</a>
-            <a href="#process" className={activeSection === 'process' ? 'nav-active' : ''}>How I Work</a>
+            {/* <a href="#process" className={activeSection === 'process' ? 'nav-active' : ''}>How I Work</a> */}
           </div>
         </div>
         <div>
@@ -533,7 +533,7 @@ function App() {
         </div>
       </section>
 
-      {/* HOW I WORK */}
+      {/* HOW I WORK — hidden for now
       <section id="process" className="section-light">
         <span className="badge badge-primary animate animate-fade-up">How I Work</span>
         <h2 className="section-title animate animate-fade-up delay-1">
@@ -571,6 +571,7 @@ function App() {
           </div>
         </div>
       </section>
+      */}
 
       {/* LET'S TALK */}
       <section id="lets-talk" className="section-cta">
