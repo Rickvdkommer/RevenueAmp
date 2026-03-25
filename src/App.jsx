@@ -9,6 +9,7 @@ import {
   Linkedin,
   Globe,
   Presentation,
+  Quote,
 } from 'lucide-react'
 
 /* ── Count-Up Hook ── */
@@ -391,7 +392,7 @@ function App() {
     )
     document.querySelectorAll('.animate').forEach((el) => animObserver.observe(el))
 
-    const sectionIds = ['hero', 'about', 'proof-points', 'lets-talk']
+    const sectionIds = ['hero', 'about', 'proof-points', 'about-me', 'process', 'lets-talk']
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -433,7 +434,7 @@ function App() {
             <a href="#" className={activeSection === 'hero' ? 'nav-active' : ''} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Home</a>
             <a href="#about" className={activeSection === 'about' ? 'nav-active' : ''}>About</a>
             <a href="#proof-points" className={activeSection === 'proof-points' ? 'nav-active' : ''}>Track Record</a>
-            {/* <a href="#process" className={activeSection === 'process' ? 'nav-active' : ''}>How I Work</a> */}
+            <a href="#process" className={activeSection === 'process' ? 'nav-active' : ''}>How I Work</a>
           </div>
         </div>
         <div>
@@ -448,11 +449,10 @@ function App() {
         <MotifPulse id="mp1" h={680} opacity={0.12} />
         <div className="hero-left animate animate-slide-left">
           <span className="badge badge-blue">Fractional Sales Leadership</span>
-          <h1>I don't hand you a strategy deck and leave. I build it with you. Then I go and sell it.</h1>
+          <h1>I don't advise. I sell.</h1>
           <div className="green-accent-line" />
           <p className="subtitle">
-            Fractional Sales Leadership for B2B companies ready to stop firefighting
-            and start building a compounding revenue engine.
+            I build the sales engine with you. Then I get on the calls and prove it works.
           </p>
           <div className="cta-row">
             <a href="#lets-talk" className="btn-primary">
@@ -533,7 +533,64 @@ function App() {
         </div>
       </section>
 
-      {/* HOW I WORK — hidden for now
+      {/* ABOUT ME */}
+      <section id="about-me" className="section-light">
+        <div className="about-me-layout animate animate-fade-up">
+          <div className="about-me-photo-wrap">
+            <img
+              src="/PaulHeadshot.jpeg"
+              alt="Paul Albert"
+              className="about-me-photo"
+            />
+          </div>
+          <div className="about-me-content">
+            <span className="badge badge-primary">About Me</span>
+            <h2 className="about-me-title">Paul Albert</h2>
+            <p className="about-me-lead">
+              20 years in B2B sales. Five revenue engines built from scratch.
+              Six international markets opened. I've done the job you're hiring for
+              — and I've done it at every stage from SDR to SVP.
+            </p>
+            <p className="about-me-body">
+              I specialise in MarTech and FinTech SaaS companies between Seed and Series B.
+              That's the stage where the founder is still closing every deal, the sales motion
+              isn't repeatable, and the gap between where you are and where you need to be
+              feels wider every quarter. I've been in that seat. I know what it takes.
+            </p>
+            <p className="about-me-body">
+              I'm not building a consulting empire. I take on a small number of partners,
+              go deep, and leave once the system runs without me. If I don't believe in
+              the problem you're solving, I'll tell you.
+            </p>
+            <div className="about-me-tags">
+              <span>MarTech</span>
+              <span>FinTech</span>
+              <span>B2B SaaS</span>
+              <span>Seed – Series B</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIAL */}
+      <section className="section-testimonial">
+        <div className="testimonial-card animate animate-fade-up">
+          <Quote size={36} className="testimonial-quote-icon" />
+          <blockquote className="testimonial-text">
+            Paul came in and did exactly what he said he would. He rebuilt our sales
+            motion from the ground up, got on the calls himself, and delivered results
+            that spoke for themselves. He's the real deal.
+          </blockquote>
+          <div className="testimonial-author">
+            <div>
+              <span className="testimonial-name">Matt Sherren</span>
+              <span className="testimonial-role">CEO, Element Human</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW I WORK */}
       <section id="process" className="section-light">
         <span className="badge badge-primary animate animate-fade-up">How I Work</span>
         <h2 className="section-title animate animate-fade-up delay-1">
@@ -571,7 +628,6 @@ function App() {
           </div>
         </div>
       </section>
-      */}
 
       {/* LET'S TALK */}
       <section id="lets-talk" className="section-cta">
