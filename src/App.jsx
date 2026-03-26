@@ -436,7 +436,7 @@ function App() {
       {/* NAV */}
       <nav className={`nav${navScrolled ? ' nav-scrolled' : ''}`}>
         <div className="nav-left">
-          <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
+          <img src="/favicon.png" alt="RevAmp" className="nav-logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
           <div className="nav-links" ref={navLinksRef}>
             <div
               className="nav-pill"
@@ -462,8 +462,9 @@ function App() {
         </div>
       </nav>
 
-      {/* MOBILE MENU */}
-      <div className={`mobile-menu${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+      {/* MOBILE MENU OVERLAY */}
+      {mobileMenuOpen && <div className="mobile-menu-backdrop" onClick={() => setMobileMenuOpen(false)} />}
+      <div className={`mobile-menu${mobileMenuOpen ? ' mobile-menu-open' : ''}`} style={{ top: navScrolled ? 64 : 72 }}>
         <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false) }}>Home</a>
         <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
         <a href="#proof-points" onClick={() => setMobileMenuOpen(false)}>Track Record</a>
