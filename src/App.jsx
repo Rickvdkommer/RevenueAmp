@@ -589,9 +589,9 @@ function App() {
         <span className="badge badge-blue animate animate-fade-up">What Clients Say</span>
         <div className="testimonial-video-wrap animate animate-fade-up delay-1">
           <iframe
-            src="https://adilo.bigcommand.com/watch/dZ08LXaq"
+            src="https://www.youtube-nocookie.com/embed/zpvMeTkm-uo?modestbranding=1&rel=0&showinfo=0&controls=1&disablekb=0&iv_load_policy=3"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            scrolling="no"
             title="Client testimonial — Matt Celuszak, CEO Element Human"
           />
         </div>
