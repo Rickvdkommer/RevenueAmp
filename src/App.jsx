@@ -605,12 +605,14 @@ function App() {
       <section className="section-testimonial">
         <span className="badge badge-blue animate animate-fade-up">What Clients Say</span>
         <div className="testimonial-video-wrap animate animate-fade-up delay-1">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/zpvMeTkm-uo?modestbranding=1&rel=0&showinfo=0&controls=1&disablekb=0&iv_load_policy=3"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Client testimonial — Matt Celuszak, CEO Element Human"
-          />
+          <video
+            controls
+            preload="metadata"
+            playsInline
+            poster=""
+          >
+            <source src="/testimonial.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="testimonial-author animate animate-fade-up delay-2">
           <div>
