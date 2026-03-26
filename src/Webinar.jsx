@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
-  Check,
+  Calendar,
   Target,
   BarChart3,
   Layers,
@@ -21,8 +21,13 @@ import './webinar.css'
 const CTA_URL = '#register'
 
 function Webinar() {
+  const [navScrolled, setNavScrolled] = useState(false)
+
   useEffect(() => {
     window.scrollTo(0, 0)
+
+    const handleScroll = () => setNavScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,11 +38,33 @@ function Webinar() {
       { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     )
     document.querySelectorAll('.animate').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
     <div className="lp">
+      {/* ─── NAV ─── */}
+      <nav className={`nav${navScrolled ? ' nav-scrolled' : ''}`}>
+        <div className="nav-left">
+          <Link to="/">
+            <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
+          </Link>
+          <div className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/#about">About</Link>
+            <Link to="/#proof-points">Track Record</Link>
+          </div>
+        </div>
+        <div>
+          <a href={CTA_URL} className="btn-primary">
+            Reserve Your Spot <Calendar size={20} />
+          </a>
+        </div>
+      </nav>
+
       {/* ─── HERO ─── */}
       <section className="lp-hero">
         <div className="lp-hero-bg" aria-hidden="true" />
@@ -265,26 +292,41 @@ function Webinar() {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <div className="lp-footer-accent" />
-      <footer className="lp-footer">
-        <div className="lp-footer-top">
-          <div className="lp-footer-brand">
-            <img src="/logo-horizontal.png" alt="RevAmp — Revenue Amplified" className="lp-footer-logo" />
+      <div className="footer-accent-line" />
+      <footer className="footer">
+        <div className="footer-top">
+          <div className="foot-brand">
+            <img src="/logo-horizontal.png" alt="RevAmp — Revenue Amplified" className="foot-logo-img" />
           </div>
-          <div className="lp-footer-links">
-            <Link to="/">Main Site</Link>
-            <a href="mailto:info@revampconsulting.co.uk">
-              <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-              Email
-            </a>
-            <a href="#">
-              <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-              LinkedIn
-            </a>
+          <div className="foot-links">
+            <div className="foot-col">
+              <h4>Navigate</h4>
+              <Link to="/">Home</Link>
+              <Link to="/#about">About</Link>
+              <Link to="/#proof-points">Track Record</Link>
+              <Link to="/#lets-talk">Contact</Link>
+            </div>
+            <div className="foot-col">
+              <h4>Connect</h4>
+              <a href="mailto:info@revampconsulting.co.uk">
+                <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
+                Email
+              </a>
+              <a href="#">
+                <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
+                LinkedIn
+              </a>
+              <a href="#">
+                <Globe size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
+                Website
+              </a>
+            </div>
           </div>
         </div>
-        <div className="lp-footer-divider" />
-        <span className="lp-footer-copy">&copy; 2026 RevAmp Consulting. All rights reserved.</span>
+        <div className="foot-divider" />
+        <div className="footer-bottom">
+          <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
+        </div>
       </footer>
     </div>
   )
