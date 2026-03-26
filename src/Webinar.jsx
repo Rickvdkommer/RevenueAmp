@@ -328,6 +328,7 @@ function Webinar() {
         <div className="foot-divider" />
         <div className="footer-bottom">
           <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
+          <Link to="/privacy" className="footer-privacy-link">Privacy Policy</Link>
         </div>
       </footer>
     </div>

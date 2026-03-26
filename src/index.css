@@ -289,11 +289,11 @@ a {
 }
 
 .hero h1 {
-  font-size: 52px;
+  font-size: 68px;
   font-weight: 800;
   color: #fff;
-  letter-spacing: -2px;
-  line-height: 1.1;
+  letter-spacing: -3px;
+  line-height: 1.05;
 }
 
 .green-accent-line {
@@ -1464,6 +1464,91 @@ a {
   color: #475569;
 }
 
+.footer-privacy-link {
+  font-size: 12px;
+  color: #475569;
+  transition: color 0.2s;
+}
+
+.footer-privacy-link:hover {
+  color: #94A3B8;
+}
+
+/* Privacy Page */
+.privacy-page {
+  padding: 120px 48px 80px;
+  background: var(--background);
+  display: flex;
+  justify-content: center;
+}
+
+.privacy-content {
+  max-width: 720px;
+  width: 100%;
+}
+
+.privacy-content h1 {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.privacy-subtitle {
+  font-size: 16px;
+  color: var(--foreground-muted);
+  margin-bottom: 40px;
+}
+
+.privacy-content h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 36px;
+  margin-bottom: 12px;
+}
+
+.privacy-content p {
+  font-size: 15px;
+  color: var(--foreground-muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.privacy-content ul {
+  padding-left: 24px;
+  margin-bottom: 12px;
+}
+
+.privacy-content li {
+  font-size: 15px;
+  color: var(--foreground-muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.privacy-content a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.privacy-content a:hover {
+  color: var(--primary-hover);
+}
+
+.privacy-ico {
+  padding: 20px 24px;
+  background: rgba(37,99,235,0.04);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-top: 12px;
+}
+
+/* Carousel adjacent hover */
+.carousel-card-adjacent:hover {
+  opacity: 0.4 !important;
+  filter: blur(0.5px) !important;
+}
+
 /* =========================================
    SCROLL ANIMATIONS
    ========================================= */
@@ -1534,7 +1619,7 @@ a {
   .contact-card { flex-direction: column; width: 100%; }
   .info-side { width: 100%; }
   .section-title { font-size: 32px; }
-  .hero h1 { font-size: 38px; }
+  .hero h1 { font-size: 46px; letter-spacing: -2px; }
   .motif { display: none; }
   .talk-cards { flex-direction: column; }
   .principle-cards { flex-direction: column; }
@@ -1546,6 +1631,7 @@ a {
   .process-connector { width: 2px; height: 32px; margin: 0 auto; }
   .carousel-headline { font-size: 19px; }
   .carousel-company { font-size: 24px; }
+  .privacy-page { padding: 100px 40px 60px; }
 }
 
 @media (max-width: 640px) {
@@ -1572,4 +1658,7 @@ a {
   .stat-value { font-size: 32px; }
   .carousel-logos { flex-wrap: wrap; justify-content: center; }
   .nav.nav-scrolled { margin: 8px auto 0; padding: 0 16px; max-width: calc(100% - 24px); }
+  .privacy-page { padding: 80px 20px 48px; }
+  .privacy-content h1 { font-size: 30px; }
+  .hero h1 { font-size: 38px; }
 }

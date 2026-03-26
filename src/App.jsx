@@ -252,6 +252,7 @@ const proofPoints = [
 function ProofCarousel() {
   const [current, setCurrent] = useState(0)
   const total = proofPoints.length
+  const touchRef = useRef(null)
 
   const prev = useCallback(() => {
     setCurrent((c) => (c === 0 ? total - 1 : c - 1))
@@ -270,6 +271,14 @@ function ProofCarousel() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [prev, next])
 
+  const onTouchStart = (e) => { touchRef.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (touchRef.current === null) return
+    const diff = touchRef.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 50) { diff > 0 ? next() : prev() }
+    touchRef.current = null
+  }
+
   const getOffset = (index) => {
     let off = index - current
     if (off > total / 2) off -= total
@@ -279,23 +288,26 @@ function ProofCarousel() {
 
   return (
     <div className="carousel">
-      <div className="carousel-deck">
+      <div className="carousel-deck" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         {proofPoints.map((pt, i) => {
           const offset = getOffset(i)
           const isActive = offset === 0
           const isVisible = Math.abs(offset) <= 2
+          const isAdjacent = Math.abs(offset) === 1
 
           return (
             <div
               key={i}
-              className="carousel-card"
+              className={`carousel-card${isAdjacent ? ' carousel-card-adjacent' : ''}`}
+              onClick={isAdjacent ? () => setCurrent(i) : undefined}
               style={{
                 transform: `translateX(${offset * 72}%) scale(${isActive ? 1 : 0.9 - Math.abs(offset) * 0.03})`,
-                opacity: isActive ? 1 : Math.abs(offset) === 1 ? 0.15 : 0,
+                opacity: isActive ? 1 : isAdjacent ? 0.25 : 0,
                 zIndex: total - Math.abs(offset),
-                pointerEvents: isActive ? 'auto' : 'none',
+                pointerEvents: isActive || isAdjacent ? 'auto' : 'none',
                 filter: isActive ? 'none' : 'blur(1px)',
                 visibility: isVisible ? 'visible' : 'hidden',
+                cursor: isAdjacent ? 'pointer' : undefined,
               }}
             >
               <div className="carousel-card-header">
@@ -477,7 +489,7 @@ function App() {
         <MotifStaircase id="ms1" h={683} opacity={0.08} />
         <span className="badge badge-primary animate animate-fade-up">The Reality Check</span>
         <h2 className="section-title animate animate-fade-up delay-1">
-          Most fractional hires give you a strategy. I give you pipeline.
+          Most fractional hires give you a strategy. I build you pipeline.
         </h2>
         <p className="section-subtitle animate animate-fade-up delay-2">
           The founder is still closing every deal, the sales motion isn't repeatable,
@@ -489,7 +501,7 @@ function App() {
             <h3>Not a consultant.</h3>
             <p>
               I don't hand you a deck and leave. I'm in the room, on the calls,
-              leading from the front while the system gets built around me.
+              leading from the front while building the systems around the motion.
             </p>
           </div>
           <div className="principle-card">
@@ -709,6 +721,7 @@ function App() {
         <div className="foot-divider" />
         <div className="footer-bottom">
           <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
+          <Link to="/privacy" className="footer-privacy-link">Privacy Policy</Link>
         </div>
       </footer>
     </>
