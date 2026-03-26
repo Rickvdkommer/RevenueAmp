@@ -599,15 +599,16 @@ a {
 .testimonial-video-wrap {
   width: 100%;
   max-width: 800px;
+  aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 12px 48px rgba(0,0,0,0.4);
 }
 
-.testimonial-video-wrap video {
+.testimonial-video-wrap iframe {
   width: 100%;
-  display: block;
+  height: 100%;
   border: none;
 }
 
