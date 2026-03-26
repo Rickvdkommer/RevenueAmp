@@ -10,6 +10,8 @@ import {
   Linkedin,
   Globe,
   Presentation,
+  Menu,
+  X,
 } from 'lucide-react'
 
 /* ── Count-Up Hook ── */
@@ -374,6 +376,7 @@ function ProofCarousel() {
 function App() {
   const [navScrolled, setNavScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const navLinksRef = useRef(null)
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 })
 
@@ -449,12 +452,26 @@ function App() {
             <a href="#process" className={activeSection === 'process' ? 'nav-active' : ''}>How I Work</a>
           </div>
         </div>
-        <div>
-          <a href="#lets-talk" className="btn-primary">
+        <div className="nav-right">
+          <a href="#lets-talk" className="btn-primary nav-cta-desktop">
             Book a Call <Calendar size={20} />
           </a>
+          <button className="burger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </nav>
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu${mobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false) }}>Home</a>
+        <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
+        <a href="#proof-points" onClick={() => setMobileMenuOpen(false)}>Track Record</a>
+        <a href="#process" onClick={() => setMobileMenuOpen(false)}>How I Work</a>
+        <a href="#lets-talk" className="btn-primary mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>
+          Book a Call <Calendar size={20} />
+        </a>
+      </div>
 
       {/* HERO */}
       <section id="hero" className="hero">
