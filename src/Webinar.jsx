@@ -53,9 +53,11 @@ function Webinar() {
             <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
           </Link>
           <div className="nav-links">
+            <div className="nav-pill" style={{ opacity: 0 }} />
             <Link to="/">Home</Link>
             <Link to="/#about">About</Link>
             <Link to="/#proof-points">Track Record</Link>
+            <Link to="/#process">How I Work</Link>
           </div>
         </div>
         <div>

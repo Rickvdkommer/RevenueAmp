@@ -684,7 +684,10 @@ function App() {
               <h4>Navigate</h4>
               <a href="#about">About</a>
               <a href="#proof-points">Track Record</a>
+              <a href="#about-me">About Me</a>
+              <a href="#process">How I Work</a>
               <a href="#lets-talk">Contact</a>
+              <Link to="/webinar">Webinar</Link>
             </div>
             <div className="foot-col">
               <h4>Connect</h4>
