@@ -1730,18 +1730,20 @@ a {
   .footer-top { flex-direction: column; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   .foot-logo-img { height: 32px; max-width: 160px; }
-  .carousel-card { padding: 20px 16px; }
-  .carousel-headline { font-size: 15px; }
-  .carousel-company { font-size: 18px; }
-  .carousel-role { font-size: 12px; }
-  .carousel-body p { font-size: 13px; }
-  .carousel-pull-quote { padding: 14px 16px; }
-  .carousel-pull-quote p { font-size: 13px; }
-  .carousel-metrics { gap: 12px; }
-  .carousel-metric-value { font-size: 20px; }
-  .carousel-metric-label { font-size: 11px; }
-  .carousel-counter { font-size: 11px; padding: 4px 10px; }
-  .carousel-card-accent { width: 40px; }
+  .carousel-card { padding: 16px 14px; gap: 12px; }
+  .carousel-card-header { margin-bottom: -4px; }
+  .carousel-headline { font-size: 14px; line-height: 1.3; }
+  .carousel-company { font-size: 16px; }
+  .carousel-role { font-size: 11px; }
+  .carousel-body { max-height: 120px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .carousel-body p { font-size: 12px; line-height: 1.6; }
+  .carousel-pull-quote { padding: 10px 12px; }
+  .carousel-pull-quote p { font-size: 12px; }
+  .carousel-metrics { gap: 10px; padding-top: 6px; }
+  .carousel-metric-value { font-size: 18px; }
+  .carousel-metric-label { font-size: 10px; }
+  .carousel-counter { font-size: 10px; padding: 3px 8px; }
+  .carousel-card-accent { width: 32px; height: 2px; }
   .talk-cards { gap: 20px; }
   .talk-card { padding: 28px; }
   .section-stats, .section-logos { padding-left: 20px; padding-right: 20px; }
