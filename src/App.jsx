@@ -171,11 +171,11 @@ const proofPoints = [
     period: '2024\u2013Present',
     headline: 'Walked into an 83% revenue concentration, a cancelled anchor account, and a burning cash runway. Here\u2019s what happened next.',
     paragraphs: [
-      'When I arrived, one client represented 83% of revenue, and then they cancelled mid-contract. There was no sales engine, no pipeline, and the clock was ticking.',
-      'I rebuilt from the ground up. Reworked the pricing to a consumption-based model to make it easier to land and expand. Cleaned up the marketing language so the proposition was actually clear. Then I went and sold it.',
-      'Bookings grew 330% in year one and are already tracking to 3x again in year two. New logos include Netflix, Prime Video, Billion Dollar Boy, Ogilvy, Captiv8 and Dentsu.',
+      'Paul came in when we were a struggling business. He professionalised our revenue motion, brought energy the team desperately needed, and gave me \u2014 as a founder \u2014 the air cover to actually step back and think about the product and business holistically. I\u2019d never had that in 13 years.',
+      'He pointed us toward a brand new customer base that replaced a very fickle engine \u2014 trading a one-propeller prop plane for two jets. I don\u2019t think we would have seen the bottom of the hockey stick without him.',
+      'What sets Paul apart is simple: he actually gets it done. When the lift needs to happen, his sleeves are rolled up and he makes it happen \u2014 even when nobody\u2019s watching. I\u2019ve worked with a lot of expensive people over the years. Very few can say that and mean it. Paul can.',
     ],
-    pullQuote: 'That\u2019s what a sales engine looks like when it runs.',
+    pullQuote: 'I don\u2019t think we would have seen the bottom of the hockey stick without him.',
     metrics: [
       { value: '330%', label: 'Bookings growth Y1' },
       { value: '3x', label: 'Tracking Y2' },
