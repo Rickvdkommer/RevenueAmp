@@ -12,6 +12,7 @@ import {
   Presentation,
   Menu,
   X,
+  Play,
 } from 'lucide-react'
 
 /* ── Count-Up Hook ── */
@@ -371,6 +372,44 @@ function ProofCarousel() {
   )
 }
 
+/* ── Video Embed (self-hosted, no YouTube branding) ── */
+
+function VideoEmbed() {
+  const videoRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+
+  const handlePlay = () => {
+    setPlaying(true)
+    setTimeout(() => videoRef.current?.play(), 0)
+  }
+
+  return (
+    <div className="testimonial-video-wrap animate animate-fade-up delay-1">
+      {playing ? (
+        <video
+          ref={videoRef}
+          src="/testimonial.mp4"
+          controls
+          autoPlay
+          playsInline
+          className="testimonial-video"
+        />
+      ) : (
+        <button className="video-poster" onClick={handlePlay} aria-label="Play video">
+          <img
+            src="https://img.youtube.com/vi/zcMWvvRxAYo/maxresdefault.jpg"
+            alt="Client testimonial thumbnail"
+            className="video-poster-img"
+          />
+          <div className="video-play-btn">
+            <Play size={32} fill="#fff" />
+          </div>
+        </button>
+      )}
+    </div>
+  )
+}
+
 /* ── Main App ── */
 
 function App() {
@@ -568,8 +607,8 @@ function App() {
         <div className="about-me-layout animate animate-fade-up">
           <div className="about-me-photo-wrap">
             <img
-              src="/PaulHeadshot.jpeg"
-              alt="Paul Albert"
+              src="/paul-family.jpg"
+              alt="Paul Albert with his family"
               className="about-me-photo"
             />
           </div>
@@ -577,25 +616,50 @@ function App() {
             <span className="badge badge-primary">About Me</span>
             <h2 className="about-me-title">Paul Albert</h2>
             <p className="about-me-lead">
-              20 years in B2B sales. Five revenue engines built from scratch.
-              Six international markets opened. I've done the job you're hiring for
-              — and I've done it at every stage from SDR to SVP.
+              The Canadian who cold called his way to the British countryside. Literally.
             </p>
             <p className="about-me-body">
-              I specialise in MarTech and FinTech SaaS companies between Seed and Series B.
-              That's the stage where the founder is still closing every deal, the sales motion
-              isn't repeatable, and the gap between where you are and where you need to be
-              feels wider every quarter. I've been in that seat. I know what it takes.
+              I moved to the UK in 2008 with a bag, a plan, and the kind of resilience
+              you develop growing up Canadian. Within months I cold called a woman who
+              introduced me to my now wife. She said yes — eventually. Best deal with
+              phenomenal net retention.
+            </p>
+            <p className="about-me-body">
+              These days I live in the English countryside with her, our two daughters,
+              a Husky Malamute who thinks he runs the house, and spend too much time
+              cooking, inside and outside. The outdoors keeps me sane. The cooking keeps
+              everyone fed. The wife, kids and dog keeps me humble.
+            </p>
+            <p className="about-me-body">
+              None of that is incidental. It's who I am — and it's probably why the
+              founders I work with trust me. I'm not a slick agency. I'm not a PowerPoint
+              merchant. I'm a person who's built real things, made real mistakes, and
+              tells you what he actually thinks.
+            </p>
+
+            <h3 className="about-me-subtitle">Professionally, the story is just as straightforward.</h3>
+            <p className="about-me-body">
+              Twenty years in B2B sales. Five revenue engines built from scratch. Six
+              international markets opened. I've done the job you're hiring for — at
+              every stage from SDR to SVP.
+            </p>
+            <p className="about-me-body">
+              I specialise in InsightTech/ResearchTech, MarTech and Fintech companies
+              between Seed and Series B. That's the stage where the founder is still
+              closing every deal, the sales motion isn't repeatable, and the gap between
+              where you are and where you need to be feels wider every quarter. I've been
+              in that seat. I know what it takes.
             </p>
             <p className="about-me-body">
               I'm not building a consulting empire. I take on a small number of partners,
-              go deep, and leave once the system runs without me. If I don't believe in
-              the problem you're solving, I'll tell you.
+              go deep, and stay until the system runs without me — or step back into an
+              advisory role once it does. If I don't believe in the problem you're solving,
+              I'll tell you. Straight.
             </p>
             <div className="about-me-tags">
+              <span>InsightTech / ResearchTech</span>
               <span>MarTech</span>
               <span>FinTech</span>
-              <span>B2B SaaS</span>
               <span>Seed – Series B</span>
             </div>
           </div>
@@ -605,14 +669,7 @@ function App() {
       {/* TESTIMONIAL */}
       <section className="section-testimonial">
         <span className="badge badge-blue animate animate-fade-up">What Clients Say</span>
-        <div className="testimonial-video-wrap animate animate-fade-up delay-1">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/zcMWvvRxAYo?modestbranding=1&rel=0&showinfo=0&iv_load_policy=3"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Client testimonial — Matt Celuszak, CEO Element Human"
-          />
-        </div>
+        <VideoEmbed />
         <div className="testimonial-author animate animate-fade-up delay-2">
           <div>
             <span className="testimonial-name">Matt Celuszak</span>

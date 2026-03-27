@@ -535,8 +535,8 @@ a {
 }
 
 .about-me-photo {
-  width: 280px;
-  height: 340px;
+  width: 340px;
+  height: 280px;
   border-radius: 20px;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -567,6 +567,13 @@ a {
   font-size: 15px;
   color: var(--foreground-muted);
   line-height: 1.7;
+}
+
+.about-me-subtitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--foreground);
+  padding-top: 8px;
 }
 
 .about-me-tags {
@@ -606,10 +613,52 @@ a {
   box-shadow: 0 12px 48px rgba(0,0,0,0.4);
 }
 
-.testimonial-video-wrap iframe {
+.testimonial-video-wrap iframe,
+.testimonial-video {
   width: 100%;
   height: 100%;
   border: none;
+  display: block;
+  object-fit: cover;
+}
+
+.video-poster {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: #000;
+  cursor: pointer;
+}
+
+.video-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.video-poster:hover .video-play-btn {
+  background: rgba(0,0,0,0.8);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 .testimonial-video-placeholder {
