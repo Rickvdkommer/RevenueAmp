@@ -535,8 +535,8 @@ a {
 }
 
 .about-me-photo {
-  width: 340px;
-  height: 280px;
+  width: 420px;
+  height: 340px;
   border-radius: 20px;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -574,6 +574,45 @@ a {
   font-weight: 700;
   color: var(--foreground);
   padding-top: 8px;
+}
+
+.about-me-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--surface);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  border: 1px solid var(--border);
+  width: fit-content;
+}
+
+.about-me-tab {
+  padding: 8px 24px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.about-me-tab:hover {
+  color: var(--foreground);
+}
+
+.about-me-tab.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+}
+
+.about-me-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .about-me-tags {
@@ -1743,7 +1782,8 @@ a {
   }
   .about-me-layout { flex-direction: column; gap: 40px; text-align: center; }
   .about-me-content { align-items: center; }
-  .about-me-photo { width: 220px; height: 270px; }
+  .about-me-photo { width: 320px; height: 260px; }
+  .about-me-tabs { align-self: center; }
   .about-me-tags { justify-content: center; }
   .testimonial-card { padding: 36px; }
   .testimonial-text { font-size: 18px; }

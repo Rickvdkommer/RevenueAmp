@@ -416,6 +416,7 @@ function App() {
   const [navScrolled, setNavScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [aboutTab, setAboutTab] = useState('personal')
   const navLinksRef = useRef(null)
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 })
 
@@ -615,53 +616,75 @@ function App() {
           <div className="about-me-content">
             <span className="badge badge-primary">About Me</span>
             <h2 className="about-me-title">Paul Albert</h2>
-            <p className="about-me-lead">
-              The Canadian who cold called his way to the British countryside. Literally.
-            </p>
-            <p className="about-me-body">
-              I moved to the UK in 2008 with a bag, a plan, and the kind of resilience
-              you develop growing up Canadian. Within months I cold called a woman who
-              introduced me to my now wife. She said yes — eventually. Best deal with
-              phenomenal net retention.
-            </p>
-            <p className="about-me-body">
-              These days I live in the English countryside with her, our two daughters,
-              a Husky Malamute who thinks he runs the house, and spend too much time
-              cooking, inside and outside. The outdoors keeps me sane. The cooking keeps
-              everyone fed. The wife, kids and dog keeps me humble.
-            </p>
-            <p className="about-me-body">
-              None of that is incidental. It's who I am — and it's probably why the
-              founders I work with trust me. I'm not a slick agency. I'm not a PowerPoint
-              merchant. I'm a person who's built real things, made real mistakes, and
-              tells you what he actually thinks.
-            </p>
-
-            <h3 className="about-me-subtitle">Professionally, the story is just as straightforward.</h3>
-            <p className="about-me-body">
-              Twenty years in B2B sales. Five revenue engines built from scratch. Six
-              international markets opened. I've done the job you're hiring for — at
-              every stage from SDR to SVP.
-            </p>
-            <p className="about-me-body">
-              I specialise in InsightTech/ResearchTech, MarTech and Fintech companies
-              between Seed and Series B. That's the stage where the founder is still
-              closing every deal, the sales motion isn't repeatable, and the gap between
-              where you are and where you need to be feels wider every quarter. I've been
-              in that seat. I know what it takes.
-            </p>
-            <p className="about-me-body">
-              I'm not building a consulting empire. I take on a small number of partners,
-              go deep, and stay until the system runs without me — or step back into an
-              advisory role once it does. If I don't believe in the problem you're solving,
-              I'll tell you. Straight.
-            </p>
-            <div className="about-me-tags">
-              <span>InsightTech / ResearchTech</span>
-              <span>MarTech</span>
-              <span>FinTech</span>
-              <span>Seed – Series B</span>
+            <div className="about-me-tabs">
+              <button
+                className={`about-me-tab${aboutTab === 'personal' ? ' active' : ''}`}
+                onClick={() => setAboutTab('personal')}
+              >
+                Personal
+              </button>
+              <button
+                className={`about-me-tab${aboutTab === 'professional' ? ' active' : ''}`}
+                onClick={() => setAboutTab('professional')}
+              >
+                Professional
+              </button>
             </div>
+            {aboutTab === 'personal' ? (
+              <div className="about-me-tab-content">
+                <p className="about-me-lead">
+                  The Canadian who cold called his way to the British countryside. Literally.
+                </p>
+                <p className="about-me-body">
+                  I moved to the UK in 2008 with a bag, a plan, and the kind of resilience
+                  you develop growing up Canadian. Within months I cold called a woman who
+                  introduced me to my now wife. She said yes — eventually. Best deal with
+                  phenomenal net retention.
+                </p>
+                <p className="about-me-body">
+                  These days I live in the English countryside with her, our two daughters,
+                  a Husky Malamute who thinks he runs the house, and spend too much time
+                  cooking, inside and outside. The outdoors keeps me sane. The cooking keeps
+                  everyone fed. The wife, kids and dog keeps me humble.
+                </p>
+                <p className="about-me-body">
+                  None of that is incidental. It's who I am — and it's probably why the
+                  founders I work with trust me. I'm not a slick agency. I'm not a PowerPoint
+                  merchant. I'm a person who's built real things, made real mistakes, and
+                  tells you what he actually thinks.
+                </p>
+              </div>
+            ) : (
+              <div className="about-me-tab-content">
+                <p className="about-me-lead">
+                  The story is just as straightforward.
+                </p>
+                <p className="about-me-body">
+                  Twenty years in B2B sales. Five revenue engines built from scratch. Six
+                  international markets opened. I've done the job you're hiring for — at
+                  every stage from SDR to SVP.
+                </p>
+                <p className="about-me-body">
+                  I specialise in InsightTech/ResearchTech, MarTech and Fintech companies
+                  between Seed and Series B. That's the stage where the founder is still
+                  closing every deal, the sales motion isn't repeatable, and the gap between
+                  where you are and where you need to be feels wider every quarter. I've been
+                  in that seat. I know what it takes.
+                </p>
+                <p className="about-me-body">
+                  I'm not building a consulting empire. I take on a small number of partners,
+                  go deep, and stay until the system runs without me — or step back into an
+                  advisory role once it does. If I don't believe in the problem you're solving,
+                  I'll tell you. Straight.
+                </p>
+                <div className="about-me-tags">
+                  <span>InsightTech / ResearchTech</span>
+                  <span>MarTech</span>
+                  <span>FinTech</span>
+                  <span>Seed – Series B</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
