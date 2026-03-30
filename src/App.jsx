@@ -478,7 +478,7 @@ function App() {
       {/* NAV */}
       <nav className={`nav${navScrolled ? ' nav-scrolled' : ''}`}>
         <div className="nav-left">
-          <img src="/favicon.png" alt="RevAmp" className="nav-logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <img src={navScrolled ? '/favicon-white.png' : '/favicon.png'} alt="RevAmp" className="nav-logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
           <div className="nav-links" ref={navLinksRef}>
             <div
               className="nav-pill"
