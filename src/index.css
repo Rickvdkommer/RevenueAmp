@@ -535,12 +535,13 @@ a {
 }
 
 .about-me-photo {
-  width: 420px;
-  height: 340px;
+  width: 480px;
+  height: 400px;
   border-radius: 20px;
   object-fit: cover;
   border: 1px solid var(--border);
   box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  transition: opacity 0.3s;
 }
 
 .about-me-content {
@@ -899,6 +900,15 @@ a {
   font-style: italic;
   color: #10B981;
   line-height: 1.5;
+  margin: 0;
+}
+
+.carousel-quote-author {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(16,185,129,0.7);
+  margin-top: 8px;
 }
 
 .carousel-metrics {
@@ -1782,7 +1792,7 @@ a {
   }
   .about-me-layout { flex-direction: column; gap: 40px; text-align: center; }
   .about-me-content { align-items: center; }
-  .about-me-photo { width: 320px; height: 260px; }
+  .about-me-photo { width: 340px; height: 280px; }
   .about-me-tabs { align-self: center; }
   .about-me-tags { justify-content: center; }
   .testimonial-card { padding: 36px; }

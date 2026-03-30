@@ -176,6 +176,7 @@ const proofPoints = [
       'What sets Paul apart is simple: he actually gets it done. When the lift needs to happen, his sleeves are rolled up and he makes it happen \u2014 even when nobody\u2019s watching. I\u2019ve worked with a lot of expensive people over the years. Very few can say that and mean it. Paul can.',
     ],
     pullQuote: 'I don\u2019t think we would have seen the bottom of the hockey stick without him.',
+    quoteAuthor: 'Matt Celuszak, CEO — Element Human',
     metrics: [
       { value: '330%', label: 'Bookings growth Y1' },
       { value: '3x', label: 'Tracking Y2' },
@@ -305,7 +306,7 @@ function ProofCarousel() {
               onClick={isAdjacent ? () => setCurrent(i) : undefined}
               style={{
                 transform: `translateX(${offset * 72}%) scale(${isActive ? 1 : 0.9 - Math.abs(offset) * 0.03})`,
-                opacity: isActive ? 1 : isAdjacent ? 0.25 : 0,
+                opacity: isActive ? 1 : isAdjacent ? 0.15 : 0,
                 zIndex: total - Math.abs(offset),
                 pointerEvents: isActive || isAdjacent ? 'auto' : 'none',
                 filter: isActive ? 'none' : 'blur(1px)',
@@ -333,6 +334,7 @@ function ProofCarousel() {
 
               <div className="carousel-pull-quote">
                 <p>{pt.pullQuote}</p>
+                {pt.quoteAuthor && <span className="carousel-quote-author">— {pt.quoteAuthor}</span>}
               </div>
 
               <div className="carousel-metrics">
@@ -416,7 +418,7 @@ function App() {
   const [navScrolled, setNavScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [aboutTab, setAboutTab] = useState('personal')
+  const [aboutTab, setAboutTab] = useState('professional')
   const navLinksRef = useRef(null)
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 })
 
@@ -608,8 +610,8 @@ function App() {
         <div className="about-me-layout animate animate-fade-up">
           <div className="about-me-photo-wrap">
             <img
-              src="/paul-family.jpg"
-              alt="Paul Albert with his family"
+              src={aboutTab === 'professional' ? '/paul-professional.jpg' : '/paul-family.jpg'}
+              alt={aboutTab === 'professional' ? 'Paul Albert' : 'Paul Albert with his family'}
               className="about-me-photo"
             />
           </div>
@@ -618,16 +620,16 @@ function App() {
             <h2 className="about-me-title">Paul Albert</h2>
             <div className="about-me-tabs">
               <button
-                className={`about-me-tab${aboutTab === 'personal' ? ' active' : ''}`}
-                onClick={() => setAboutTab('personal')}
-              >
-                Personal
-              </button>
-              <button
                 className={`about-me-tab${aboutTab === 'professional' ? ' active' : ''}`}
                 onClick={() => setAboutTab('professional')}
               >
                 Professional
+              </button>
+              <button
+                className={`about-me-tab${aboutTab === 'personal' ? ' active' : ''}`}
+                onClick={() => setAboutTab('personal')}
+              >
+                Personal
               </button>
             </div>
             {aboutTab === 'personal' ? (
