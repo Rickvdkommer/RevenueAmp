@@ -1,31 +1,13 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Mail, Linkedin, Globe } from 'lucide-react'
+import Nav from './Nav.jsx'
+import Footer from './Footer.jsx'
 
 function Privacy() {
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
     <>
-      <nav className="nav">
-        <div className="nav-left">
-          <Link to="/">
-            <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
-          </Link>
-          <div className="nav-links">
-            <div className="nav-pill" style={{ opacity: 0 }} />
-            <Link to="/">Home</Link>
-            <Link to="/#about">About</Link>
-            <Link to="/#proof-points">Track Record</Link>
-            <Link to="/#process">How I Work</Link>
-          </div>
-        </div>
-        <div>
-          <Link to="/#lets-talk" className="btn-primary">
-            Book a Call
-          </Link>
-        </div>
-      </nav>
+      <Nav />
 
       <section className="privacy-page">
         <div className="privacy-content">
@@ -100,46 +82,7 @@ function Privacy() {
         </div>
       </section>
 
-      <div className="footer-accent-line" />
-      <footer className="footer">
-        <div className="footer-top">
-          <div className="foot-brand">
-            <img src="/logo-horizontal.png" alt="RevAmp — Revenue Amplified" className="foot-logo-img" />
-          </div>
-          <div className="foot-links">
-            <div className="foot-col">
-              <h4>Navigate</h4>
-              <Link to="/">Home</Link>
-              <Link to="/#about">About</Link>
-              <Link to="/#proof-points">Track Record</Link>
-              <Link to="/#about-me">About Me</Link>
-              <Link to="/#process">How I Work</Link>
-              <Link to="/#lets-talk">Contact</Link>
-              <Link to="/webinar">Webinar</Link>
-            </div>
-            <div className="foot-col">
-              <h4>Connect</h4>
-              <a href="mailto:info@revampconsulting.co.uk">
-                <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                Email
-              </a>
-              <a href="#">
-                <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                LinkedIn
-              </a>
-              <a href="#">
-                <Globe size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                Website
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="foot-divider" />
-        <div className="footer-bottom">
-          <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
-          <Link to="/privacy" className="footer-privacy-link">Privacy Policy</Link>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }

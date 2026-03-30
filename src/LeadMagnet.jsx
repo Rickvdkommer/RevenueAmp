@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  ArrowRight,
-  Mail,
-  Linkedin,
-  Globe,
-  BarChart3,
-} from 'lucide-react'
+import { BarChart3 } from 'lucide-react'
+import Nav from './Nav.jsx'
+import Footer from './Footer.jsx'
 import './leadmagnet.css'
 
 const CTA_URL = '/#lets-talk'
@@ -184,14 +180,10 @@ export default function LeadMagnet() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [unlocked, setUnlocked] = useState(false)
-  const [navScrolled, setNavScrolled] = useState(false)
   const cardRef = useRef(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
-
-    const handleScroll = () => setNavScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', handleScroll, { passive: true })
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -202,11 +194,7 @@ export default function LeadMagnet() {
       { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     )
     document.querySelectorAll('.animate').forEach((el) => observer.observe(el))
-
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('scroll', handleScroll)
-    }
+    return () => observer.disconnect()
   }, [])
 
   const goNext = (val) => {
@@ -519,25 +507,11 @@ export default function LeadMagnet() {
   return (
     <div className="lp diagnostic-wrap">
       {/* ─── NAV ─── */}
-      <nav className={`nav${navScrolled ? ' nav-scrolled' : ''}`}>
-        <div className="nav-left">
-          <Link to="/">
-            <img src="/favicon.png" alt="RevAmp" className="nav-logo" />
-          </Link>
-          <div className="nav-links">
-            <div className="nav-pill" style={{ opacity: 0 }} />
-            <Link to="/">Home</Link>
-            <Link to="/#about">About</Link>
-            <Link to="/#proof-points">Track Record</Link>
-            <Link to="/#process">How I Work</Link>
-          </div>
-        </div>
-        <div>
-          <Link to="/lead-magnet" className="btn-primary">
-            Take the Diagnostic <BarChart3 size={20} />
-          </Link>
-        </div>
-      </nav>
+      <Nav cta={
+        <Link to="/lead-magnet" className="btn-primary">
+          Take the Diagnostic <BarChart3 size={20} />
+        </Link>
+      } />
 
       {/* ─── BODY ─── */}
       {phase === 'intro' && renderIntro()}
@@ -545,43 +519,7 @@ export default function LeadMagnet() {
       {phase === 'results' && renderResults()}
 
       {/* ─── FOOTER ─── */}
-      <div className="footer-accent-line" />
-      <footer className="footer">
-        <div className="footer-top">
-          <div className="foot-brand">
-            <img src="/logo-horizontal.png" alt="RevAmp — Revenue Amplified" className="foot-logo-img" />
-          </div>
-          <div className="foot-links">
-            <div className="foot-col">
-              <h4>Navigate</h4>
-              <Link to="/">Home</Link>
-              <Link to="/#about">About</Link>
-              <Link to="/#proof-points">Track Record</Link>
-              <Link to="/#lets-talk">Contact</Link>
-            </div>
-            <div className="foot-col">
-              <h4>Connect</h4>
-              <a href="mailto:info@revampconsulting.co.uk">
-                <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                Email
-              </a>
-              <a href="#">
-                <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                LinkedIn
-              </a>
-              <a href="#">
-                <Globe size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                Website
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="foot-divider" />
-        <div className="footer-bottom">
-          <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
-          <Link to="/privacy" className="footer-privacy-link">Privacy Policy</Link>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

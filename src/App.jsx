@@ -6,14 +6,12 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Mail,
-  Linkedin,
-  Globe,
   Presentation,
   Menu,
   X,
   Play,
 } from 'lucide-react'
+import Footer from './Footer.jsx'
 
 /* ── Count-Up Hook ── */
 
@@ -781,48 +779,10 @@ function App() {
       </section>
 
       {/* FOOTER ACCENT LINE */}
-      <div className="footer-accent-line" />
-
       {/* FOOTER */}
-      <footer className="footer">
+      <Footer>
         <MotifPulse id="mp4" h={304} opacity={0.07} />
-        <div className="footer-top">
-          <div className="foot-brand">
-            <img src="/logo-horizontal.png" alt="RevAmp — Revenue Amplified" className="foot-logo-img" />
-          </div>
-          <div className="foot-links">
-            <div className="foot-col">
-              <h4>Navigate</h4>
-              <a href="#about">About</a>
-              <a href="#proof-points">Track Record</a>
-              <a href="#about-me">About Me</a>
-              <a href="#process">How I Work</a>
-              <a href="#lets-talk">Contact</a>
-              <Link to="/webinar">Webinar</Link>
-            </div>
-            <div className="foot-col">
-              <h4>Connect</h4>
-              <a href="mailto:info@revampconsulting.co.uk">
-                <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                Email
-              </a>
-              <a href="#">
-                <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                LinkedIn
-              </a>
-              <a href="#">
-                <Globe size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
-                Website
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="foot-divider" />
-        <div className="footer-bottom">
-          <span>&copy; 2026 RevAmp Consulting. All rights reserved.</span>
-          <Link to="/privacy" className="footer-privacy-link">Privacy Policy</Link>
-        </div>
-      </footer>
+      </Footer>
     </>
   )
 }
