@@ -176,7 +176,7 @@ const proofPoints = [
       'What sets Paul apart is simple: he actually gets it done. When the lift needs to happen, his sleeves are rolled up and he makes it happen \u2014 even when nobody\u2019s watching. I\u2019ve worked with a lot of expensive people over the years. Very few can say that and mean it. Paul can.',
     ],
     pullQuote: 'I don\u2019t think we would have seen the bottom of the hockey stick without him.',
-    quoteAuthor: 'Matt Celuszak, CEO — Element Human',
+    quoteAuthor: 'Matt Celuszak, CEO, Element Human',
     metrics: [
       { value: '330%', label: 'Bookings growth Y1' },
       { value: '3x', label: 'Tracking Y2' },
