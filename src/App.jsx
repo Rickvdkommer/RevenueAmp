@@ -632,8 +632,8 @@ function App() {
                 Personal
               </button>
             </div>
-            {aboutTab === 'personal' ? (
-              <div className="about-me-tab-content">
+            <div className="about-me-tab-panels">
+              <div className={`about-me-tab-content${aboutTab === 'personal' ? ' active' : ''}`}>
                 <p className="about-me-lead">
                   The Canadian who cold called his way to the British countryside. Literally.
                 </p>
@@ -656,8 +656,7 @@ function App() {
                   tells you what he actually thinks.
                 </p>
               </div>
-            ) : (
-              <div className="about-me-tab-content">
+              <div className={`about-me-tab-content${aboutTab === 'professional' ? ' active' : ''}`}>
                 <p className="about-me-lead">
                   The story is just as straightforward.
                 </p>
@@ -686,7 +685,7 @@ function App() {
                   <span>Seed – Series B</span>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>

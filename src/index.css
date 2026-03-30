@@ -610,10 +610,23 @@ a {
   box-shadow: 0 2px 8px rgba(37,99,235,0.25);
 }
 
+.about-me-tab-panels {
+  display: grid;
+}
+
 .about-me-tab-content {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s;
+}
+
+.about-me-tab-content.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .about-me-tags {
