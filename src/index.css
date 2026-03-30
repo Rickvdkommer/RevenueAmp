@@ -89,7 +89,6 @@ a {
 .nav-logo {
   height: 36px;
   width: auto;
-  border-radius: 8px;
   transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
