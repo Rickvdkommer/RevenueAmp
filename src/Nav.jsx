@@ -33,9 +33,9 @@ export default function Nav({ cta, scrolled: controlledScrolled }) {
       </div>
       <div>
         {cta || (
-          <Link to="/#lets-talk" className="btn-primary">
+          <a href="https://app.onecal.io/b/paul-albert/" target="_blank" rel="noopener noreferrer" className="btn-primary">
             Book a Call <Calendar size={20} />
-          </Link>
+          </a>
         )}
       </div>
     </nav>

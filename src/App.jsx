@@ -209,8 +209,8 @@ const proofPoints = [
     ],
     pullQuote: 'Sometimes you build the right machine at exactly the wrong moment.',
     metrics: [
-      { value: '\u00A3400k', label: 'MSC Cruises deal' },
-      { value: '4', label: 'Focused verticals' },
+      { value: '125%', label: 'NRR' },
+      { value: '9x', label: 'ACV' },
     ],
   },
   {
@@ -493,7 +493,7 @@ function App() {
           </div>
         </div>
         <div className="nav-right">
-          <a href="#lets-talk" className="btn-primary nav-cta-desktop">
+          <a href="https://app.onecal.io/b/paul-albert/" target="_blank" rel="noopener noreferrer" className="btn-primary nav-cta-desktop">
             Book a Call <Calendar size={20} />
           </a>
           <button className="burger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
@@ -509,7 +509,7 @@ function App() {
         <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
         <a href="#proof-points" onClick={() => setMobileMenuOpen(false)}>Track Record</a>
         <a href="#process" onClick={() => setMobileMenuOpen(false)}>How I Work</a>
-        <a href="#lets-talk" className="btn-primary mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>
+        <a href="https://app.onecal.io/b/paul-albert/" target="_blank" rel="noopener noreferrer" className="btn-primary mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>
           Book a Call <Calendar size={20} />
         </a>
       </div>
@@ -525,7 +525,7 @@ function App() {
             I build the sales engine with you. Then I get on the calls and prove it works.
           </p>
           <div className="cta-row">
-            <a href="#lets-talk" className="btn-primary">
+            <a href="https://app.onecal.io/b/paul-albert/" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Book a Call <Calendar size={20} />
             </a>
             <a href="#proof-points" className="btn-outline">
@@ -637,9 +637,9 @@ function App() {
                 </p>
                 <p className="about-me-body">
                   I moved to the UK in 2008 with a bag, a plan, and the kind of resilience
-                  you develop growing up Canadian. Within months I cold called a woman who
-                  introduced me to my now wife. She said yes — eventually. Best deal with
-                  phenomenal net retention.
+                  you develop growing up Canadian. Within months, I made the most important
+                  cold call in my life. This is how I met my wife, the longest deal with
+                  the best net retention I could imagine!
                 </p>
                 <p className="about-me-body">
                   These days I live in the English countryside with her, our two daughters,
@@ -771,7 +771,7 @@ function App() {
               tuning, let's find out. I'll tell you what I see, honestly, whether we
               work together or not.
             </p>
-            <a href="#" className="btn-primary">
+            <a href="https://app.onecal.io/b/paul-albert/" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Book the Audit <ArrowRight size={18} />
             </a>
           </div>

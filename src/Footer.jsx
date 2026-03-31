@@ -19,7 +19,7 @@ export default function Footer({ children }) {
               <Link to="/#proof-points">Track Record</Link>
               <Link to="/#about-me">About Me</Link>
               <Link to="/#process">How I Work</Link>
-              <Link to="/#lets-talk">Contact</Link>
+              <a href="https://app.onecal.io/b/paul-albert/" target="_blank" rel="noopener noreferrer">Book a Call</a>
               <Link to="/webinar">Webinar</Link>
             </div>
             <div className="foot-col">

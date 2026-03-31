@@ -5,7 +5,7 @@ import Nav from './Nav.jsx'
 import Footer from './Footer.jsx'
 import './leadmagnet.css'
 
-const CTA_URL = '/#lets-talk'
+const CTA_URL = 'https://app.onecal.io/b/paul-albert/'
 
 const CATEGORIES = [
   {
