@@ -167,7 +167,7 @@ const proofPoints = [
     company: 'Element Human',
     role: 'Fractional Sales Leadership',
     period: '2024\u2013Present',
-    headline: 'Walked into an 83% revenue concentration, a cancelled anchor account, and a burning cash runway. Here\u2019s what happened next.',
+    headline: 'A cancelled anchor account and a burning cash runway. Here\u2019s what happened next.',
     paragraphs: [
       'Paul came in when we were a struggling business. He professionalised our revenue motion, brought energy the team desperately needed, and gave me \u2014 as a founder \u2014 the air cover to actually step back and think about the product and business holistically. I\u2019d never had that in 13 years.',
       'He pointed us toward a brand new customer base that replaced a very fickle engine \u2014 trading a one-propeller prop plane for two jets. I don\u2019t think we would have seen the bottom of the hockey stick without him.',
