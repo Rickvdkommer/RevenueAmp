@@ -28,7 +28,7 @@ export default function Footer({ children }) {
                 <Mail size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
                 Email
               </a>
-              <a href="#">
+              <a href="https://www.linkedin.com/in/paulalbert/" target="_blank" rel="noopener noreferrer">
                 <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
                 LinkedIn
               </a>
