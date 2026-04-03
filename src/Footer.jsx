@@ -32,7 +32,7 @@ export default function Footer({ children }) {
                 <Linkedin size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
                 LinkedIn
               </a>
-              <a href="#">
+              <a href="https://www.revampconsulting.co.uk" target="_blank" rel="noopener noreferrer">
                 <Globe size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
                 Website
               </a>
