@@ -164,27 +164,12 @@ function MotifStaircase({ id = 'ms', h = 683, opacity = 0.08 }) {
 
 const proofPoints = [
   {
-    company: 'Element Human',
-    role: 'Fractional Sales Leadership',
-    period: '2024\u2013Present',
-    headline: 'A cancelled anchor account and a burning cash runway. Here\u2019s what happened next.',
-    paragraphs: [
-      'I rebuilt from the ground up. Reworked the pricing to a consumption-based model to make it easier to land and expand. Cleaned up the marketing language so the proposition was actually clear. Then I went and sold it.',
-      'Bookings grew 330% in year one and are already tracking to 3x again in year two. New logos include Netflix, Prime Video, Billion Dollar Boy, Ogilvy, Captiv8 and Dentsu.',
-    ],
-    pullQuote: 'That\u2019s what a sales engine looks like when it runs.',
-    metrics: [
-      { value: '330%', label: 'Bookings growth Y1' },
-      { value: '3x', label: 'Tracking Y2' },
-    ],
-  },
-  {
     company: 'Payhawk',
     role: 'SVP Global Sales',
     period: '2022',
     headline: 'Hired to build. Fired for not hitting 10x. Here\u2019s what we actually did in 12 months.',
     paragraphs: [
-      'I was brought in to professionalise a sales, success and support organisation that was essentially one team doing everything badly. I split them into distinct functions, hired 90 people in 9 months, opened Netherlands, France and the US, built out a new Salesforce instance from scratch and laid the foundations for a revenue operations data model that could actually scale.',
+      'Brought in to professionalise a sales organisation that was one team doing everything badly. I split them into distinct functions, hired 90 people in 9 months, opened three new markets and built a new Salesforce instance from scratch.',
       'Revenue grew 4x (\u20AC3M to \u20AC12M ARR) in a single year.',
     ],
     pullQuote: 'It wasn\u2019t the 10x the Series B demanded. But 4x from a standing start, across six markets, while building the entire infrastructure underneath it. I\u2019ll take that story any day.',
@@ -200,10 +185,8 @@ const proofPoints = [
     period: '2019\u20132021',
     headline: 'The problem wasn\u2019t the product. It was that they were selling it to everyone.',
     paragraphs: [
-      'When I arrived, Freespee was saying yes to any deal that came through the door. The numbers told a different story. CAC was identical whether you were landing a small brand or an enterprise, but LTV for smaller accounts barely covered the cost of winning them. It was growth that was quietly bleeding the business.',
-      'I stopped it. Closed unprofitable offices in Germany and Spain, right-sized the team and refocused the entire organisation around four verticals where the economics actually worked: Automotive, Luxury, Marketplace and Travel.',
-      'It worked. MSC Cruises landed at \u00A3400k and Richemont was next in line.',
-      'Then Covid hit. Every vertical we\u2019d built around (travel, luxury, automotive) shut down overnight. We shifted to protecting the base and rode it out.',
+      'When I arrived, Freespee was saying yes to any deal that came through the door. CAC was identical whether you were landing a small brand or an enterprise, but LTV for smaller accounts barely covered the cost of winning them. It was growth that was quietly bleeding the business.',
+      'I closed unprofitable offices, right-sized the team and refocused around four verticals where the economics worked. MSC Cruises landed at \u00A3400k and Richemont was next in line \u2014 then Covid shut down every vertical overnight.',
     ],
     pullQuote: 'Sometimes you build the right machine at exactly the wrong moment.',
     metrics: [
@@ -218,8 +201,7 @@ const proofPoints = [
     headline: 'A Google Sheet, less than \u00A3100k in revenue, and a blank map of Europe.',
     paragraphs: [
       'Zappi was scrappy in the best possible way, but scrappy doesn\u2019t scale. I came in as the commercial lead for EMEA with one job: build the European business from nothing.',
-      'I introduced customer success, stood up the first Salesforce instance, hired a team that could actually go and win (many of whom are still there today as top performers). Established bases in Germany and France and made Zappi a recognised player across Europe.',
-      'By the time I left, the EU business was at \u00A38M ARR as part of a \u00A325M global business. Logos included Philip Morris, Reckitt Benckiser, Nestl\u00E9 and Samsung with deals ranging from \u00A360k to \u00A31M.',
+      'I introduced customer success, stood up the first Salesforce instance, hired a team that could win, and established bases in Germany and France. By the time I left, the EU business was at \u00A38M ARR as part of a \u00A325M global business. Logos included Philip Morris, Reckitt Benckiser, Nestl\u00E9 and Samsung.',
     ],
     pullQuote: 'From a Google Sheet to a growth engine. That\u2019s the job.',
     metrics: [
@@ -234,9 +216,8 @@ const proofPoints = [
     period: '2005\u20132014',
     headline: 'Nearly a decade. Three roles. One through line: build it from nothing.',
     paragraphs: [
-      'It started in Vancouver as one of the first SDRs, tasked with breaking into the US market. We did, generating 220+ discovery and demo meetings in a single year and creating the momentum that funded everything that followed.',
-      'That momentum got me sent to London as the first international employee, with a blank sheet of paper and a brief to build EMEA. I hunted across the region, landed anchor accounts and built the kind of pipeline that turns a startup into a serious business. Major wins included O2, UNICEF, HSBC and Twitter.',
-      'By the time I left as Sales Director, the UK business was at \u00A38M ARR.',
+      'Started in Vancouver as one of the first SDRs, generating 220+ meetings in a single year. That momentum got me sent to London as the first international employee to build EMEA from scratch.',
+      'I landed anchor accounts including O2, UNICEF, HSBC and Twitter, and built the UK business to \u00A38M ARR by the time I left as Sales Director.',
     ],
     pullQuote: 'Nine years. Every role earned. Every market built from scratch.',
     metrics: [

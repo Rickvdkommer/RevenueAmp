@@ -1852,7 +1852,7 @@ a {
   .carousel-headline { font-size: 14px; line-height: 1.3; }
   .carousel-company { font-size: 16px; }
   .carousel-role { font-size: 11px; }
-  .carousel-body { max-height: 100px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .carousel-body { }
   .carousel-body p { font-size: 12px; line-height: 1.5; }
   .carousel-pull-quote { display: none; }
   .carousel-metrics { gap: 10px; padding-top: 6px; }
